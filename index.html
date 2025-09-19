@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spades Tournament - Qualifying Round Robin</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .tournament-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .header::before,
+        .header::after {
+            content: "♠";
+            position: absolute;
+            font-size: 2em;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.3;
+        }
+
+        .header::before { left: 30px; }
+        .header::after { right: 30px; }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h2 {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .format-info {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .format-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+        }
+
+        .format-info p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .teams-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .team {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .team:hover {
+            transform: translateY(-2px);
+        }
+
+        .team.qualified {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .team.eliminated {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
+            opacity: 0.7;
+        }
+
+        .schedule-section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .day-schedule {
+            margin-bottom: 25px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .day-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .day-matches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .schedule-match {
+            background: #f8f9fa;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-match:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+        }
+
+        .match-teams-schedule {
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .vs-schedule {
+            margin: 0 10px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .matches-section {
+            margin-bottom: 40px;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .match {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .match:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+        }
+
+        .match-header {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .match-team {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        .vs {
+            margin: 0 15px;
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+
+        .score-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .score-input input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .score-input input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .match-status {
+            text-align: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .standings-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .standings-table th {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .standings-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .standings-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .standings-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .qualified-row { 
+            background: linear-gradient(45deg, #d5f4e6, #fafafa) !important; 
+            border-left: 5px solid #27ae60;
+        }
+        .eliminated-row { 
+            background: linear-gradient(45deg, #fadbd8, #fafafa) !important; 
+            border-left: 5px solid #e74c3c;
+            opacity: 0.7;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .qualified-badge {
+            background: #27ae60;
+            color: white;
+        }
+
+        .eliminated-badge {
+            background: #e74c3c;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .matches-grid, .day-matches {
+                grid-template-columns: 1fr;
+            }
+            
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .match-team {
+                font-size: 0.8em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tournament-container">
+        <div class="header">
+            <h1>♠ SPADES TOURNAMENT ♠</h1>
+            <h2>Qualifying Round Robin - 6 Teams Compete, Top 4 Advance</h2>
+        </div>
+
+        <div class="content">
+            <div class="format-info">
+                <h3>🏆 Tournament Format</h3>
+                <p>Round Robin Qualifying: Each team plays all others (15 matches) • Wins = 1 point, Losses = 0 • Bottom 2 teams eliminated • Top 4 advance to elimination bracket</p>
+            </div>
+
+            <div class="teams-section">
+                <div class="section-title">Tournament Teams</div>
+                <div class="teams-grid">
+                    <div class="team" id="team1">
+                        <strong>Team 1</strong><br>
+                        Truth & Wheezy
+                    </div>
+                    <div class="team" id="team2">
+                        <strong>Team 2</strong><br>
+                        chacha & Kat
+                    </div>
+                    <div class="team" id="team3">
+                        <strong>Team 3</strong><br>
+                        Bailey & Yassy
+                    </div>
+                    <div class="team" id="team4">
+                        <strong>Team 4</strong><br>
+                        Chels & Edaddy
+                    </div>
+                    <div class="team" id="team5">
+                        <strong>Team 5</strong><br>
+                        Ramzy & DhaRoyalBarb5
+                    </div>
+                    <div class="team" id="team6">
+                        <strong>Team 6</strong><br>
+                        EmojiPrincess & Klambstahh
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-section">
+                <div class="section-title">Qualifying Round Schedule</div>
+                
+                <div class="day-schedule">
+                    <div class="day-header">Monday, Sept 29</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Truth & Wheezy <span class="vs-schedule">vs</span> chacha & Kat
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Bailey & Yassy <span class="vs-schedule">vs</span> Chels & Edaddy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Tuesday, Sept 30</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Truth & Wheezy <span class="vs-schedule">vs</span> Bailey & Yassy
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                chacha & Kat <span class="vs-schedule">vs</span> Chels & Edaddy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Wednesday, Oct 1</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Truth & Wheezy <span class="vs-schedule">vs</span> Chels & Edaddy
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                chacha & Kat <span class="vs-schedule">vs</span> Bailey & Yassy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Thursday, Oct 2</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Truth & Wheezy <span class="vs-schedule">vs</span> Ramzy & DhaRoyalBarb5
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                chacha & Kat <span class="vs-schedule">vs</span> EmojiPrincess & Klambstahh
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Friday, Oct 3</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Truth & Wheezy <span class="vs-schedule">vs</span> EmojiPrincess & Klambstahh
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                chacha & Kat <span class="vs-schedule">vs</span> Ramzy & DhaRoyalBarb5
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Saturday, Oct 4</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Bailey & Yassy <span class="vs-schedule">vs</span> Ramzy & DhaRoyalBarb5
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Chels & Edaddy <span class="vs-schedule">vs</span> EmojiPrincess & Klambstahh
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Sunday, Oct 5</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Bailey & Yassy <span class="vs-schedule">vs</span> EmojiPrincess & Klambstahh
+                            </div>
+                        </div>
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Chels & Edaddy <span class="vs-schedule">vs</span> Ramzy & DhaRoyalBarb5
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-schedule">
+                    <div class="day-header">Monday, Oct 6</div>
+                    <div class="day-matches">
+                        <div class="schedule-match">
+                            <div class="match-teams-schedule">
+                                Ramzy & DhaRoyalBarb5 <span class="vs-schedule">vs</span> EmojiPrincess & Klambstahh
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="matches-section">
+                <div class="section-title">Match Results (Enter Win/Loss only - 1 for Win, 0 for Loss)</div>
+                <div class="matches-grid">
+                    <div class="match">
+                        <div class="match-header">Match 1 - Monday, Sept 29</div>
+                        <div class="match-teams">
+                            <div class="match-team">Truth & Wheezy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">chacha & Kat</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 2 - Monday, Sept 29</div>
+                        <div class="match-teams">
+                            <div class="match-team">Bailey & Yassy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Chels & Edaddy</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 3 - Tuesday, Sept 30</div>
+                        <div class="match-teams">
+                            <div class="match-team">Truth & Wheezy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Bailey & Yassy</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 4 - Tuesday, Sept 30</div>
+                        <div class="match-teams">
+                            <div class="match-team">chacha & Kat</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Chels & Edaddy</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 5 - Wednesday, Oct 1</div>
+                        <div class="match-teams">
+                            <div class="match-team">Truth & Wheezy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Chels & Edaddy</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 6 - Wednesday, Oct 1</div>
+                        <div class="match-teams">
+                            <div class="match-team">chacha & Kat</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Bailey & Yassy</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 7 - Thursday, Oct 2</div>
+                        <div class="match-teams">
+                            <div class="match-team">Truth & Wheezy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 8 - Thursday, Oct 2</div>
+                        <div class="match-teams">
+                            <div class="match-team">chacha & Kat</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">EmojiPrincess & Klambstahh</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 9 - Friday, Oct 3</div>
+                        <div class="match-teams">
+                            <div class="match-team">Truth & Wheezy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">EmojiPrincess & Klambstahh</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 10 - Friday, Oct 3</div>
+                        <div class="match-teams">
+                            <div class="match-team">chacha & Kat</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 11 - Saturday, Oct 4</div>
+                        <div class="match-teams">
+                            <div class="match-team">Bailey & Yassy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 12 - Saturday, Oct 4</div>
+                        <div class="match-teams">
+                            <div class="match-team">Chels & Edaddy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">EmojiPrincess & Klambstahh</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 13 - Sunday, Oct 5</div>
+                        <div class="match-teams">
+                            <div class="match-team">Bailey & Yassy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">EmojiPrincess & Klambstahh</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 14 - Sunday, Oct 5</div>
+                        <div class="match-teams">
+                            <div class="match-team">Chels & Edaddy</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="match-header">Match 15 - Monday, Oct 6</div>
+                        <div class="match-teams">
+                            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+                            <div class="vs">VS</div>
+                            <div class="match-team">EmojiPrincess & Klambstahh</div>
+                        </div>
+                        <div class="score-input">
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                            <span>-</span>
+                            <input type="number" placeholder="W/L" min="0" max="1">
+                        </div>
+                        <div class="match-status">Enter 1 for Win, 0 for Loss</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="standings-section">
+                <div class="section-title">Qualifying Standings (Top 4 Advance to Elimination)</div>
+                <table class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
