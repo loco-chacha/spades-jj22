@@ -1,626 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spades Tournament</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0;
-            padding: 15px;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JJ22 Spades — Tournament</title>
 
-        .tournament-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
+  <!-- Fonts to match the site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 
-        .header {
-            background: linear-gradient(45deg, #2c3e50, #34495e);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+  <style>
+    :root{
+      --bg1:#0b0f1a; --bg2:#111827; --text:#e5e7eb; --muted:#cbd5e1;
+      --accent:#a78bfa; --accent-2:#22d3ee; --ring:#38bdf8;
+    }
 
-        .header h1 {
-            margin: 0;
-            font-size: 2em;
-            font-weight: bold;
-        }
+    /* Site background matches Home/Guide */
+    body{
+      margin:0; padding:15px;
+      min-height:100vh;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:#1f2937;
+      background:
+        radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.20), transparent 60%),
+        radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
 
-        .header p {
-            margin: 8px 0 0 0;
-            opacity: 0.9;
-            font-size: 0.95em;
-        }
+    /* White container you liked */
+    .tournament-container{
+      max-width:1200px; margin:0 auto;
+      background: rgba(255,255,255,0.97);
+      border-radius: 18px; overflow:hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.5);
+    }
 
-        .content {
-            padding: 20px;
-        }
+    /* JJ22 brand header */
+    .brand-header{
+      display:flex; align-items:center; gap:14px;
+      background: linear-gradient(45deg, #0f172a, #1e293b);
+      color:white; padding:18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .logo{
+      width:58px; height:58px; border-radius:14px; display:grid; place-items:center;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent-2), var(--accent));
+      box-shadow: 0 8px 26px rgba(56,189,248,.35);
+      transform: rotate(-6deg);
+      flex: 0 0 auto;
+    }
+    .logo span{
+      font-family:"JetBrains Mono", monospace; font-weight:800; font-size:20px; color:#0b1020;
+      text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    }
+    .brand-title{
+      margin:0; line-height:1.15;
+      font-weight:800; font-size: clamp(22px, 4.2vw, 32px);
+    }
+    .brand-sub{
+      margin:4px 0 0 0; opacity:.85; font-size:.95rem;
+    }
 
-        .info-bar {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 0.9em;
-        }
+    .crumb{
+      background: #f1f5f9;
+      color:#334155;
+      font-size:.9rem;
+      padding: 10px 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .crumb a{ color:#0ea5e9; text-decoration:none }
+    .crumb a:hover{ text-decoration:underline }
 
-        .section-title {
-            font-size: 1.4em;
-            color: #2c3e50;
-            margin: 25px 0 15px 0;
-            font-weight: bold;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-        }
+    .content{ padding:20px }
 
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    /* Info bar & section headings */
+    .info-bar{
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      color:white; padding:12px 20px; border-radius:10px; text-align:center; font-size:.92rem; margin-bottom:20px;
+      box-shadow: 0 6px 16px rgba(231,76,60,.25);
+    }
+    .section-title{
+      font-size:1.25rem; color:#0f172a; font-weight:800;
+      margin:26px 0 14px; padding-bottom:6px;
+      border-bottom: 2px solid #38bdf8;
+      letter-spacing:.2px;
+    }
 
-        .team {
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.9em;
-            box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
-        }
+    /* Teams */
+    .teams-grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:12px; margin-bottom:20px;
+    }
+    .team{
+      background: linear-gradient(45deg, #27ae60, #2ecc71);
+      color:white; padding:12px; border-radius:10px; text-align:center; font-weight:700; font-size:.95rem;
+      box-shadow: 0 4px 12px rgba(46,204,113,.35);
+    }
 
-        .schedule-compact {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+    /* Schedule */
+    .schedule-compact{ background:#f8fafc; border-radius:12px; padding:16px; margin-bottom:20px; border:1px solid #e2e8f0 }
+    .day-row{ display:grid; grid-template-columns: 110px 1fr; gap:14px; margin-bottom:12px; align-items:center }
+    .day-label{ font-weight:800; color:#1e293b; font-size:.9rem }
+    .day-matches{ display:flex; flex-wrap:wrap; gap:8px }
+    .mini-match{ background:white; border:1px solid #e5e7eb; border-radius:8px; padding:6px 10px; font-size:.85rem; color:#1f2937; flex:1; min-width:220px; text-align:center }
 
-        .day-row {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 15px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
+    /* Matches */
+    .matches-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-bottom:20px }
+    .match{ background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,.05) }
+    .match-header{ font-size:.95rem; font-weight:800; color:#0f172a; margin-bottom:8px; text-align:center; border-bottom:1px solid #eef2f7; padding-bottom:6px }
+    .match-teams{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px }
+    .match-team{ flex:1; text-align:center; padding:6px; background:#f8fafc; border-radius:8px; font-size:.85rem; color:#1e293b }
+    .vs{ margin:0 8px; font-weight:800; color:#e74c3c; font-size:.9rem }
+    .score-input{ display:flex; justify-content:center; gap:8px; margin-bottom:8px }
+    .score-input input{ width:48px; padding:5px; border:1px solid #e5e7eb; border-radius:6px; text-align:center; font-size:.95rem }
+    .match-status{ text-align:center; font-size:.78rem; color:#64748b; font-style:italic }
 
-        .day-label {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 0.85em;
-        }
+    /* Standings */
+    .standings-section{ background:#f8fafc; border-radius:12px; padding:16px; border:1px solid #e2e8f0 }
+    .standings-table{ width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.05); font-size:.9rem }
+    .standings-table th{ background: linear-gradient(45deg, #38bdf8, #0ea5e9); color:white; padding:10px 8px; text-align:left; font-weight:800; letter-spacing:.2px }
+    .standings-table td{ padding:10px 8px; border-bottom:1px solid #eef2f7 }
+    .standings-table tr:nth-child(even){ background:#f8fafc }
+    .qualified-row{ background:linear-gradient(45deg,#d5f4e6,#fafafa)!important; border-left:3px solid #27ae60 }
+    .eliminated-row{ background:linear-gradient(45deg,#fadbd8,#fafafa)!important; border-left:3px solid #e74c3c; opacity:.85 }
+    .status-badge{ padding:3px 8px; border-radius:999px; font-size:.75rem; font-weight:800 }
+    .qualified-badge{ background:#22c55e; color:white }
+    .eliminated-badge{ background:#ef4444; color:white }
 
-        .day-matches {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+    /* Buttons / footer */
+    .top-actions{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 8px }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      background:#0f172a; color:#e6faff; border:1px solid rgba(56,189,248,.35); border-radius:12px;
+      text-decoration:none; font-weight:800; font-size:.9rem;
+    }
+    .btn:hover{ border-color: var(--ring) }
+    .footer-note{
+      margin: 18px 0 6px; color:#64748b; font-size:.9rem; text-align:right;
+    }
 
-        .mini-match {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 6px 10px;
-            font-size: 0.8em;
-            color: #2c3e50;
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .match {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .match-header {
-            font-size: 0.9em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 8px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .match-teams {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .match-team {
-            flex: 1;
-            text-align: center;
-            padding: 6px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-size: 0.8em;
-            color: #2c3e50;
-        }
-
-        .vs {
-            margin: 0 8px;
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 0.9em;
-        }
-
-        .score-input {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .score-input input {
-            width: 45px;
-            padding: 4px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            text-align: center;
-            font-size: 0.9em;
-        }
-
-        .match-status {
-            text-align: center;
-            font-size: 0.75em;
-            color: #7f8c8d;
-            font-style: italic;
-        }
-
-        .standings-section {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-        }
-
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.85em;
-        }
-
-        .standings-table th {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            padding: 10px 8px;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        .standings-table td {
-            padding: 8px;
-            border-bottom: 1px solid #ecf0f1;
-        }
-
-        .standings-table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .qualified-row { 
-            background: linear-gradient(45deg, #d5f4e6, #fafafa) !important; 
-            border-left: 3px solid #27ae60;
-        }
-        .eliminated-row { 
-            background: linear-gradient(45deg, #fadbd8, #fafafa) !important; 
-            border-left: 3px solid #e74c3c;
-            opacity: 0.7;
-        }
-
-        .status-badge {
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-size: 0.7em;
-            font-weight: bold;
-        }
-
-        .qualified-badge {
-            background: #27ae60;
-            color: white;
-        }
-
-        .eliminated-badge {
-            background: #e74c3c;
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .day-row {
-                grid-template-columns: 80px 1fr;
-                gap: 10px;
-            }
-            
-            .mini-match {
-                min-width: 150px;
-                font-size: 0.75em;
-                padding: 4px 6px;
-            }
-            
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .teams-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 1.6em;
-            }
-
-            .match-team {
-                font-size: 0.7em;
-                padding: 4px;
-            }
-
-            .standings-table {
-                font-size: 0.75em;
-            }
-        }
-    </style>
+    @media (max-width: 768px){
+      .day-row{ grid-template-columns: 90px 1fr }
+      .mini-match{ min-width: 170px; font-size:.78rem; padding:4px 6px }
+      .matches-grid{ grid-template-columns: 1fr }
+      .teams-grid{ grid-template-columns: 1fr }
+      .brand-title{ font-size:1.4rem }
+    }
+  </style>
 </head>
 <body>
-    <div class="tournament-container">
-        <div class="header">
-            <h1>♠ Spades Tournament ♠</h1>
-            <p>Qualifying Round Robin • 5 Teams • Top 4 Advance to Elimination</p>
-        </div>
-
-        <div class="content">
-            <div class="info-bar">
-                Round Robin: Each team plays all others (10 matches) • Wins = 1 point • Bottom team eliminated
-            </div>
-
-            <div class="section-title">Teams</div>
-            <div class="teams-grid">
-                <div class="team">Truth & Wheezy</div>
-                <div class="team">chacha & Kat</div>
-                <div class="team">Chels & Yassy</div>
-                <div class="team">Ramzy & DhaRoyalBarb5</div>
-                <div class="team">EmojiPrincess & Klambstahh</div>
-            </div>
-
-            <div class="section-title">Schedule</div>
-            <div class="schedule-compact">
-                <div class="day-row">
-                    <div class="day-label">Mon 9/29</div>
-                    <div class="day-matches">
-                        <div class="mini-match">Chels & Yassy vs Ramzy & DhaRoyalBarb5</div>
-                        <div class="mini-match">EmojiPrincess & Klambstahh vs chacha & Kat</div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <div class="day-label">Tue 9/30</div>
-                    <div class="day-matches">
-                        <div class="mini-match">Truth & Wheezy vs Chels & Yassy</div>
-                        <div class="mini-match">Ramzy & DhaRoyalBarb5 vs EmojiPrincess & Klambstahh</div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <div class="day-label">Wed 10/1</div>
-                    <div class="day-matches">
-                        <div class="mini-match">Truth & Wheezy vs Ramzy & DhaRoyalBarb5</div>
-                        <div class="mini-match">Chels & Yassy vs EmojiPrincess & Klambstahh</div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <div class="day-label">Thu 10/2</div>
-                    <div class="day-matches">
-                        <div class="mini-match">Truth & Wheezy vs EmojiPrincess & Klambstahh</div>
-                        <div class="mini-match">chacha & Kat vs Ramzy & DhaRoyalBarb5</div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <div class="day-label">Fri 10/3</div>
-                    <div class="day-matches">
-                        <div class="mini-match">chacha & Kat vs Chels & Yassy</div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <div class="day-label">Sat 10/4</div>
-                    <div class="day-matches">
-                        <div class="mini-match">Truth & Wheezy vs chacha & Kat</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-title">Match Results</div>
-            <div class="matches-grid">
-                <div class="match">
-                    <div class="match-header">Match 1 - Mon 9/29</div>
-                    <div class="match-teams">
-                        <div class="match-team">Chels & Yassy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">Ramzy & DhaRoyalBarb5</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 2 - Mon 9/29</div>
-                    <div class="match-teams">
-                        <div class="match-team">EmojiPrincess & Klambstahh</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">chacha & Kat</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 3 - Tue 9/30</div>
-                    <div class="match-teams">
-                        <div class="match-team">Truth & Wheezy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">Chels & Yassy</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 4 - Tue 9/30</div>
-                    <div class="match-teams">
-                        <div class="match-team">Ramzy & DhaRoyalBarb5</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">EmojiPrincess & Klambstahh</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 5 - Wed 10/1</div>
-                    <div class="match-teams">
-                        <div class="match-team">Truth & Wheezy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">Ramzy & DhaRoyalBarb5</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 6 - Wed 10/1</div>
-                    <div class="match-teams">
-                        <div class="match-team">Chels & Yassy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">EmojiPrincess & Klambstahh</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 7 - Thu 10/2</div>
-                    <div class="match-teams">
-                        <div class="match-team">Truth & Wheezy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">EmojiPrincess & Klambstahh</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 8 - Thu 10/2</div>
-                    <div class="match-teams">
-                        <div class="match-team">chacha & Kat</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">Ramzy & DhaRoyalBarb5</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 9 - Fri 10/3</div>
-                    <div class="match-teams">
-                        <div class="match-team">chacha & Kat</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">Chels & Yassy</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-
-                <div class="match">
-                    <div class="match-header">Match 10 - Sat 10/4</div>
-                    <div class="match-teams">
-                        <div class="match-team">Truth & Wheezy</div>
-                        <div class="vs">vs</div>
-                        <div class="match-team">chacha & Kat</div>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                        <span>-</span>
-                        <input type="number" placeholder="W/L" min="0" max="1">
-                    </div>
-                    <div class="match-status">1 = Win, 0 = Loss</div>
-                </div>
-            </div>
-
-            <div class="section-title">Standings</div>
-            <div class="standings-section">
-                <table class="standings-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Team</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="standings-body">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div class="tournament-container">
+    <!-- JJ22 Brand Header -->
+    <div class="brand-header">
+      <div class="logo" aria-hidden="true"><span>JJ22</span></div>
+      <div>
+        <h1 class="brand-title">JJ22 🃏♠️ — Spades Tournament</h1>
+        <p class="brand-sub">Qualifying Round Robin • 5 Teams • Top 4 advance to Elimination</p>
+      </div>
     </div>
 
-    <script>
-        const teams = [
-            "Truth & Wheezy",
-            "chacha & Kat", 
-            "Chels & Yassy",
-            "Ramzy & DhaRoyalBarb5",
-            "EmojiPrincess & Klambstahh"
-        ];
+    <!-- Breadcrumb -->
+    <div class="crumb">
+      <a href="index.html">Home</a> / Tournament
+    </div>
 
-        // Initialize team stats
-        const teamStats = {};
-        teams.forEach(team => {
-            teamStats[team] = {
-                wins: 0,
-                losses: 0
-            };
-        });
+    <div class="content">
+      <!-- Quick actions -->
+      <div class="top-actions">
+        <a class="btn" href="#schedule">View Schedule ➜</a>
+        <a class="btn" href="#results">Enter Results ➜</a>
+        <a class="btn" href="#standings">Standings ➜</a>
+        <a class="btn" href="guidebook.html">Guidebook 🃏</a>
+      </div>
 
-        // Add event listeners to all score inputs
-        document.querySelectorAll('.score-input input').forEach(input => {
-            input.addEventListener('change', updateStandings);
-        });
+      <div class="info-bar">
+        Round Robin: Each team plays all others (10 matches) • Wins = 1 point • Bottom team eliminated
+      </div>
 
-        // Initialize standings on page load
-        function initializeStandings() {
-            updateStandings();
+      <div class="section-title">Teams</div>
+      <div class="teams-grid">
+        <div class="team">Truth & Wheezy</div>
+        <div class="team">chacha & Kat</div>
+        <div class="team">Chels & Yassy</div>
+        <div class="team">Ramzy & DhaRoyalBarb5</div>
+        <div class="team">EmojiPrincess & Klambstahh</div>
+      </div>
+
+      <div class="section-title" id="schedule">Schedule</div>
+      <div class="schedule-compact">
+        <div class="day-row">
+          <div class="day-label">Mon 9/29</div>
+          <div class="day-matches">
+            <div class="mini-match">Chels & Yassy vs Ramzy & DhaRoyalBarb5</div>
+            <div class="mini-match">EmojiPrincess & Klambstahh vs chacha & Kat</div>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-label">Tue 9/30</div>
+          <div class="day-matches">
+            <div class="mini-match">Truth & Wheezy vs Chels & Yassy</div>
+            <div class="mini-match">Ramzy & DhaRoyalBarb5 vs EmojiPrincess & Klambstahh</div>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-label">Wed 10/1</div>
+          <div class="day-matches">
+            <div class="mini-match">Truth & Wheezy vs Ramzy & DhaRoyalBarb5</div>
+            <div class="mini-match">Chels & Yassy vs EmojiPrincess & Klambstahh</div>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-label">Thu 10/2</div>
+          <div class="day-matches">
+            <div class="mini-match">Truth & Wheezy vs EmojiPrincess & Klambstahh</div>
+            <div class="mini-match">chacha & Kat vs Ramzy & DhaRoyalBarb5</div>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-label">Fri 10/3</div>
+          <div class="day-matches">
+            <div class="mini-match">chacha & Kat vs Chels & Yassy</div>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-label">Sat 10/4</div>
+          <div class="day-matches">
+            <div class="mini-match">Truth & Wheezy vs chacha & Kat</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" id="results">Match Results</div>
+      <div class="matches-grid">
+        <div class="match">
+          <div class="match-header">Match 1 - Mon 9/29</div>
+          <div class="match-teams">
+            <div class="match-team">Chels & Yassy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 2 - Mon 9/29</div>
+          <div class="match-teams">
+            <div class="match-team">EmojiPrincess & Klambstahh</div>
+            <div class="vs">vs</div>
+            <div class="match-team">chacha & Kat</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 3 - Tue 9/30</div>
+          <div class="match-teams">
+            <div class="match-team">Truth & Wheezy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">Chels & Yassy</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 4 - Tue 9/30</div>
+          <div class="match-teams">
+            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+            <div class="vs">vs</div>
+            <div class="match-team">EmojiPrincess & Klambstahh</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 5 - Wed 10/1</div>
+          <div class="match-teams">
+            <div class="match-team">Truth & Wheezy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 6 - Wed 10/1</div>
+          <div class="match-teams">
+            <div class="match-team">Chels & Yassy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">EmojiPrincess & Klambstahh</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 7 - Thu 10/2</div>
+          <div class="match-teams">
+            <div class="match-team">Truth & Wheezy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">EmojiPrincess & Klambstahh</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 8 - Thu 10/2</div>
+          <div class="match-teams">
+            <div class="match-team">chacha & Kat</div>
+            <div class="vs">vs</div>
+            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 9 - Fri 10/3</div>
+          <div class="match-teams">
+            <div class="match-team">chacha & Kat</div>
+            <div class="vs">vs</div>
+            <div class="match-team">Chels & Yassy</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+
+        <div class="match">
+          <div class="match-header">Match 10 - Sat 10/4</div>
+          <div class="match-teams">
+            <div class="match-team">Truth & Wheezy</div>
+            <div class="vs">vs</div>
+            <div class="match-team">chacha & Kat</div>
+          </div>
+          <div class="score-input">
+            <input type="number" placeholder="W/L" min="0" max="1">
+            <span>-</span>
+            <input type="number" placeholder="W/L" min="0" max="1">
+          </div>
+          <div class="match-status">1 = Win, 0 = Loss</div>
+        </div>
+      </div>
+
+      <div class="section-title" id="standings">Standings</div>
+      <div class="standings-section">
+        <table class="standings-table">
+          <thead>
+          <tr>
+            <th>Rank</th><th>Team</th><th>Wins</th><th>Losses</th><th>Status</th>
+          </tr>
+          </thead>
+          <tbody id="standings-body"></tbody>
+        </table>
+      </div>
+
+      <p class="footer-note">
+        Built for Spades Lovers by <strong>loco_chacha</strong> • <a href="index.html" class="btn" style="margin-left:8px">⟵ Back to Home</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const teams = [
+      "Truth & Wheezy",
+      "chacha & Kat",
+      "Chels & Yassy",
+      "Ramzy & DhaRoyalBarb5",
+      "EmojiPrincess & Klambstahh"
+    ];
+
+    // Initialize team stats
+    const teamStats = {};
+    teams.forEach(team => { teamStats[team] = { wins: 0, losses: 0 }; });
+
+    // Listen to all score inputs
+    document.querySelectorAll('.score-input input').forEach(input => {
+      input.addEventListener('change', updateStandings);
+    });
+
+    function initializeStandings(){ updateStandings(); }
+
+    function updateStandings(){
+      // Reset stats
+      teams.forEach(team => { teamStats[team] = { wins: 0, losses: 0 }; });
+
+      // Process matches
+      document.querySelectorAll('.match').forEach(match => {
+        const teamElements = match.querySelectorAll('.match-team');
+        const scoreInputs = match.querySelectorAll('.score-input input');
+
+        const team1 = teamElements[0].textContent.trim();
+        const team2 = teamElements[1].textContent.trim();
+        const score1 = parseInt(scoreInputs[0].value) || 0;
+        const score2 = parseInt(scoreInputs[1].value) || 0;
+
+        if ((score1 === 1 || score2 === 1) && teams.includes(team1) && teams.includes(team2)) {
+          if (score1 === 1) { teamStats[team1].wins++; teamStats[team2].losses++; }
+          else if (score2 === 1) { teamStats[team2].wins++; teamStats[team1].losses++; }
+        }
+      });
+
+      // Sort by wins
+      const sorted = teams.slice().sort((a,b) => teamStats[b].wins - teamStats[a].wins);
+
+      // Render table
+      const tbody = document.getElementById('standings-body');
+      tbody.innerHTML = '';
+      sorted.forEach((team, i) => {
+        const s = teamStats[team];
+        const tr = document.createElement('tr');
+
+        let status = '-';
+        if (s.wins > 0 || s.losses > 0) {
+          if (i < 4) { status = '<span class="status-badge qualified-badge">QUALIFIED</span>'; tr.classList.add('qualified-row'); }
+          else { status = '<span class="status-badge eliminated-badge">ELIMINATED</span>'; tr.classList.add('eliminated-row'); }
         }
 
-        function updateStandings() {
-            // Reset all stats
-            teams.forEach(team => {
-                teamStats[team] = {
-                    wins: 0,
-                    losses: 0
-                };
-            });
+        tr.innerHTML = `<td>${i+1}</td><td>${team}</td><td>${s.wins}</td><td>${s.losses}</td><td>${status}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
 
-            // Process all matches
-            document.querySelectorAll('.match').forEach(match => {
-                const teamElements = match.querySelectorAll('.match-team');
-                const scoreInputs = match.querySelectorAll('.score-input input');
-                
-                const team1 = teamElements[0].textContent.trim();
-                const team2 = teamElements[1].textContent.trim();
-                const score1 = parseInt(scoreInputs[0].value) || 0;
-                const score2 = parseInt(scoreInputs[1].value) || 0;
-
-                if ((score1 === 1 || score2 === 1) && teams.includes(team1) && teams.includes(team2)) {
-                    if (score1 === 1) {
-                        teamStats[team1].wins++;
-                        teamStats[team2].losses++;
-                    } else if (score2 === 1) {
-                        teamStats[team2].wins++;
-                        teamStats[team1].losses++;
-                    }
-                }
-            });
-
-            // Sort teams by wins
-            const sortedTeams = teams.slice().sort((a, b) => {
-                return teamStats[b].wins - teamStats[a].wins;
-            });
-
-            // Update standings table
-            const tbody = document.getElementById('standings-body');
-            tbody.innerHTML = '';
-            
-            sortedTeams.forEach((team, index) => {
-                const stats = teamStats[team];
-                const row = document.createElement('tr');
-                
-                let status = '-';
-                if (stats.wins > 0 || stats.losses > 0) {
-                    if (index < 4) {
-                        status = '<span class="status-badge qualified-badge">QUALIFIED</span>';
-                        row.classList.add('qualified-row');
-                    } else {
-                        status = '<span class="status-badge eliminated-badge">ELIMINATED</span>';
-                        row.classList.add('eliminated-row');
-                    }
-                }
-                
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${team}</td>
-                    <td>${stats.wins}</td>
-                    <td>${stats.losses}</td>
-                    <td>${status}</td>
-                `;
-                
-                tbody.appendChild(row);
-            });
-        }
-
-        // Initialize standings when page loads
-        initializeStandings();
-    </script>
+    initializeStandings();
+  </script>
 </body>
 </html>
+
