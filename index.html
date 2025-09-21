@@ -11,28 +11,31 @@
 
   <style>
     :root{
-      --bg1:#0b0f1a;
-      --bg2:#111827;
-      --accent:#a78bfa;
-      --accent-2:#22d3ee;
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-      --btn:#1f2937;
+      --bg1:#0b0f1a;      /* deep navy */
+      --bg2:#111827;      /* slate */
+      --card:#0f172a;     /* card panel */
+      --accent:#a78bfa;   /* violet */
+      --accent-2:#22d3ee; /* cyan */
+      --text:#e5e7eb;     /* light text */
+      --muted:#94a3b8;    /* muted text */
+      --btn:#1f2937;      /* button base */
       --btn-hover:#0ea5e9;
       --ring:#38bdf8;
     }
 
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
       margin:0;
       color:var(--text);
-      font-family: Poppins, sans-serif;
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
       background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.2), transparent 60%),
                   radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.18), transparent 60%),
                   linear-gradient(180deg, var(--bg1), var(--bg2));
     }
 
     .wrap{
-      min-height: 100vh;
+      min-height: 100%;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -46,12 +49,31 @@
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 28px;
       padding: clamp(24px, 4vw, 40px);
-      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+      box-shadow: 0 10px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+      backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle floating suits background */
+    .card::after{
+      content: "♠ ♥ ♣ ♦";
+      font-family: "JetBrains Mono", monospace;
+      letter-spacing: .6rem;
+      font-weight:700;
+      font-size: clamp(40px, 12vw, 120px);
+      color: rgba(255,255,255,.03);
+      position:absolute;
+      right: -10px;
+      bottom:-6px;
+      user-select:none;
+      pointer-events:none;
     }
 
     header{
-      display:flex;
-      gap: 16px;
+      display:grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
       align-items:center;
       margin-bottom: 28px;
     }
@@ -70,19 +92,36 @@
       font-weight: 800;
       font-size: 22px;
       color: #0b1020;
+      text-shadow: 0 1px 0 rgba(255,255,255,.5);
     }
 
     h1{
       margin:0;
       font-weight: 800;
       font-size: clamp(28px, 4.6vw, 44px);
+      letter-spacing:.5px;
+      line-height:1.12;
     }
-    h1 span.emojis{ font-size: 1.2em; margin-left: 8px; }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      margin-top: 6px;
+      color: var(--muted);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .tag .pill{
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(56,189,248,.12);
+      border: 1px solid rgba(56,189,248,.35);
+      color:#bfefff;
+    }
 
     .lead{
       margin: 8px 0 18px;
       color: var(--muted);
       font-size: clamp(14px, 2.2vw, 18px);
+      max-width: 70ch;
     }
 
     .buttons{
@@ -95,46 +134,97 @@
     }
 
     a.btn{
+      position:relative;
       display:flex;
+      align-items:center;
       justify-content:space-between;
+      gap: 14px;
       padding: 18px 20px;
-      background: var(--btn);
+      background: linear-gradient(180deg, var(--btn), #111827);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 16px;
       color:var(--text);
       text-decoration:none;
       font-weight: 700;
+      letter-spacing:.2px;
+      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,.25);
+      outline: none;
+    }
+    a.btn:focus{ box-shadow: 0 0 0 4px rgba(56,189,248,.35); border-color: var(--ring); }
+    a.btn:hover{ transform: translateY(-2px); border-color: rgba(56,189,248,.45); }
+    a .sub{
+      display:block;
+      font-weight:600;
+      color:var(--muted);
+      margin-top: 4px;
+      font-size: .95rem;
+    }
+    .ctaIcon{
+      font-size: 22px;
+      opacity:.9;
+      transform: translateX(0);
       transition: transform .15s ease;
     }
-    a.btn:hover{ transform: translateY(-2px); border-color: var(--ring); }
+    a.btn:hover .ctaIcon{ transform: translateX(3px); }
 
     footer{
       margin-top: 26px;
       color: var(--muted);
       font-size: 13px;
-      text-align: right;
+      display:flex; gap:10px; align-items:center; justify-content:flex-end;
+    }
+    .jj22{
+      font-family:"JetBrains Mono", monospace;
+      padding:4px 10px;
+      border-radius:10px;
+      background:rgba(167,139,250,.14);
+      border:1px solid rgba(167,139,250,.35);
+      color:#e9ddff;
     }
   </style>
 </head>
 
 <body>
   <main class="wrap">
-    <section class="card">
+    <section class="card" role="region" aria-labelledby="site-title">
       <header>
-        <div class="logo"><span>JJ22</span></div>
+        <div class="logo" aria-hidden="true"><span>JJ22</span></div>
         <div>
-          <h1>JJ22 <span class="emojis">🃏♠️</span></h1>
-          <p class="lead">Joker Joker Deuce Deuce Spades — tournaments, rules, and winning strategy.</p>
+          <h1 id="site-title">JJ22 Spades</h1>
+          <div class="tag">
+            <span class="pill">Joker • Joker • Deuce • Deuce</span>
+            <span>♠ Play bold. Bid smart.</span>
+          </div>
         </div>
       </header>
 
-      <nav class="buttons">
-        <a class="btn" href="tournament.html">Spades Tournament ➜</a>
-        <a class="btn" href="guidebook.html">Spades Guidebook ➜</a>
+      <p class="lead">
+        Welcome to the home of <strong>JJ22 (Joker Joker Deuce Deuce)</strong> Spades—your hub for tournaments, rules, and winning strategy.
+        Choose a section below to get started.
+      </p>
+
+      <nav class="buttons" aria-label="Primary">
+        <a class="btn" href="tournament.html">
+          <div>
+            Spades Tournament
+            <span class="sub">Dates, format, registration & brackets</span>
+          </div>
+          <div class="ctaIcon" aria-hidden="true">➜</div>
+        </a>
+
+        <a class="btn" href="guidebook.html">
+          <div>
+            Spades Guidebook
+            <span class="sub">JJ22 rules, scoring, table talk & etiquette</span>
+          </div>
+          <div class="ctaIcon" aria-hidden="true">➜</div>
+        </a>
       </nav>
 
       <footer>
-        Built for Spades Lovers by <strong>loco_chacha</strong>
+        <span class="jj22">JJ22</span>
+        <span>Built for Spades lovers ♠ <strong>loco_chacha</strong> </span>
       </footer>
     </section>
   </main>
