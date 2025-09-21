@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JJ22 Spades — Guidebook</title>
+  <meta name="description" content="JJ22 (Joker Joker Deuce Deuce) Spades guidebook: rules, bidding, scoring, and etiquette." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b0f1a; --bg2:#111827; --text:#e5e7eb; --muted:#94a3b8;
+      --accent:#a78bfa; --accent-2:#22d3ee; --ring:#38bdf8;
+      --panel:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family:Poppins,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.2), transparent 60%),
+                  radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.18), transparent 60%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+    a{color:#bfefff}
+    .wrap{min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:48px 20px}
+    .card{
+      width:100%; max-width:980px; border-radius:28px; padding:clamp(24px,4vw,40px);
+      background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.02));
+      border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,.35); position:relative; overflow:hidden;
+    }
+    header{display:flex; gap:16px; align-items:center; margin-bottom:16px}
+    .logo{
+      width:64px;height:64px;border-radius:16px;display:grid;place-items:center;
+      background:conic-gradient(from 210deg, var(--accent), var(--accent-2), var(--accent));
+      box-shadow:0 8px 26px rgba(56,189,248,.35); transform:rotate(-6deg)
+    }
+    .logo span{font-family:"JetBrains Mono",monospace;font-weight:800;font-size:22px;color:#0b1020}
+    h1{margin:0;font-weight:800;font-size:clamp(28px,4.6vw,44px)}
+    h1 .emojis{font-size:1.2em;margin-left:8px}
+    .breadcrumb{margin:6px 0 22px;color:var(--muted);font-size:14px}
+    .breadcrumb a{color:var(--muted); text-decoration:none}
+    .breadcrumb a:hover{color:#e8f7ff; text-decoration:underline}
+
+    /* layout */
+    .content{display:grid; grid-template-columns:1fr; gap:20px}
+    @media (min-width:900px){ .content{grid-template-columns: 280px 1fr} }
+
+    /* side panel / toc */
+    .panel{
+      background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:20px; padding:16px 16px;
+    }
+    .panel h3{margin:0 0 10px; font-size:16px; letter-spacing:.3px}
+    .toc{list-style:none; padding-left:0; margin:0}
+    .toc li{margin:8px 0}
+    .toc a{text-decoration:none; color:var(--text)}
+    .toc a:hover{color:#c7f2ff}
+
+    /* main body */
+    h2{margin:22px 0 10px; font-size:clamp(20px,3.4vw,28px)}
+    p{color:var(--text); line-height:1.65}
+    .muted{color:var(--muted)}
+    .callout{
+      margin:12px 0 22px; padding:16px 18px; border-radius:16px;
+      background:rgba(167,139,250,.10); border:1px solid rgba(167,139,250,.35)
+    }
+    blockquote{
+      margin:0; font-size:clamp(16px,2.4vw,20px); font-weight:600; line-height:1.5
+    }
+    .grid-2{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:700px){ .grid-2{grid-template-columns:1fr 1fr} }
+
+    .rulebox{
+      background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:16px; padding:14px 16px
+    }
+    ul{margin:8px 0 0 18px}
+    code{font-family:"JetBrains Mono",monospace; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px}
+
+    .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
+      background:#1f2937; border:1px solid var(--border); color:var(--text); text-decoration:none; font-weight:700
+    }
+    .btn:hover{border-color:var(--ring)}
+    footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:right}
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card" role="region" aria-labelledby="title">
+      <header>
+        <div class="logo"><span>JJ22</span></div>
+        <div>
+          <h1 id="title">Spades Guidebook <span class="emojis">🃏♠️</span></h1>
+          <div class="breadcrumb"><a href="index.html">Home</a> / Guidebook</div>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- TOC -->
+        <aside class="panel" aria-label="Table of contents">
+          <h3>Contents</h3>
+          <ul class="toc">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#jj22-rules">JJ22 Card Order</a></li>
+            <li><a href="#deal-bid">Dealing & Bidding</a></li>
+            <li><a href="#play">Gameplay Basics</a></li>
+            <li><a href="#scoring">Scoring</a></li>
+            <li><a href="#nil">Nil & Blind Nil</a></li>
+            <li><a href="#etiquette">Table Talk & Etiquette</a></li>
+            <li><a href="#tips">Quick Tips</a></li>
+          </ul>
+          <div class="btn-row" style="margin-top:14px">
+            <a class="btn" href="#scoring">Jump to Scoring ➜</a>
+            <a class="btn" href="tournament.html">Tournament Info ➜</a>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <article>
+          <div class="callout" aria-label="Quote">
+            <blockquote>“Spades rewards memory and teamwork. Clock the Big Four, help your partner, and know when to risk it all.”</blockquote>
+          </div>
+
+          <section id="overview">
+            <h2>Overview</h2>
+            <p class="muted">This guide covers the JJ22 variant — <em>Joker Joker Deuce Deuce</em> — with streamlined rules you can use at home or in tournament play.</p>
+          </section>
+
+          <section id="jj22-rules" class="grid-2">
+            <div class="rulebox">
+              <h2>JJ22 Card Order (High → Low)</h2>
+              <p><strong>Big Joker</strong> (colored) → <strong>Little Joker</strong> (black &amp; white) → <strong>Deuce of Spades (2♠)</strong> → <strong>A♠ K♠ Q♠ … 3♠</strong> → all other suits A–2 (no trump unless spades are broken).</p>
+              <ul>
+                <li>Jokers are always spades (trump).</li>
+                <li>2♠ outranks A♠ and down.</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Deck & Teams</h2>
+              <ul>
+                <li>Standard 52-card deck + both Jokers.</li>
+                <li>Four players, fixed partners sitting opposite.</li>
+                <li>Deal 13 cards each.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="deal-bid" class="grid-2">
+            <div class="rulebox">
+              <h2>Dealing & Bidding</h2>
+              <ul>
+                <li>Dealer shuffles; deal clockwise.</li>
+                <li>Each player bids the number of tricks they expect to take.</li>
+                <li>Partners’ bids add to a <strong>team contract</strong>.</li>
+                <li>Typical target: 500 points (adjust per tournament).</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Breaking Spades</h2>
+              <ul>
+                <li>Spades (trump) cannot be led until <em>broken</em> (someone cannot follow suit and plays a spade) or only spades remain in your hand.</li>
+                <li>Jokers count as spades for breaking.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="play">
+            <h2>Gameplay Basics</h2>
+            <ul>
+              <li>Follow suit if you can; if not, you may trump with a spade or discard another suit.</li>
+              <li>Highest trump wins the trick. If no trump is played, highest card of the led suit wins.</li>
+              <li>Winner of each trick leads the next.</li>
+            </ul>
+          </section>
+
+          <section id="scoring" class="grid-2">
+            <div class="rulebox">
+              <h2>Standard Scoring</h2>
+              <ul>
+                <li>Made contract: <strong>10 points × team bid</strong>.</li>
+                <li>Overtricks (<em>bags</em>): <strong>+1</strong> each.</li>
+                <li>Set (failed contract): <strong>−10 points × team bid</strong>.</li>
+                <li>Bag penalty: every 10 bags = <strong>−100</strong>, bags reset.</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Example</h2>
+              <p>Team bids 6 and takes 8 tricks → <code>60 + 2 bags = 62</code> points.</p>
+              <p>Team bids 7 and takes 6 → <code>−70</code> points.</p>
+            </div>
+          </section>
+
+          <section id="nil" class="grid-2">
+            <div class="rulebox">
+              <h2>Nil & Blind Nil</h2>
+              <ul>
+                <li><strong>Nil</strong> (bid 0): if successful, <strong>+100</strong>; if you take any trick, <strong>−100</strong>.</li>
+                <li><strong>Blind Nil</strong> (before seeing cards, if allowed): <strong>+200 / −200</strong>. House rules may permit exchanging up to 2 cards with partner after the bid.</li>
+                <li>Partner’s tricks still count toward team contract.</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>JJ22 Tips for Nil</h2>
+              <ul>
+                <li>Watch for the Big Four (🃏🃏 2♠ A♠). Track who’s shown them.</li>
+                <li>Partner should burn high cards early to protect a Nil.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="etiquette">
+            <h2>Table Talk & Etiquette</h2>
+            <ul>
+              <li>No coded talk or illegal signals. Clarify <em>legal</em> conventions before play.</li>
+              <li>Lead cleanly, play at a reasonable pace, and be respectful on sets.</li>
+              <li>Resolve disputes by re-dealing or consulting house/tournament rules.</li>
+            </ul>
+          </section>
+
+          <section id="tips">
+            <h2>Quick Tips</h2>
+            <ul>
+              <li>Count suits and note when they’re void—information wins games.</li>
+              <li>Bid your books, not your hopes. Trust your partner’s numbers.</li>
+              <li>Use spades to control the lead; steal with the right Joker, not the first chance.</li>
+              <li>Manage bags—sometimes dumping a winner saves 100 later.</li>
+            </ul>
+          </section>
+
+          <div class="btn-row">
+            <a class="btn" href="index.html">⟵ Back to Home</a>
+            <a class="btn" href="#top">Back to Top ↑</a>
+          </div>
+
+          <footer>
+            Built for Spades Lovers by <strong>loco_chacha</strong>
+          </footer>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
