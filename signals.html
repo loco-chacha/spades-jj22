@@ -1,377 +1,348 @@
-body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JJ22 Spades – Complete Signal Guide</title>
+  <meta name="description" content="A complete JJ22 Spades signal guide with bidding, carding, nil protection, positional play, and training missions." />
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --panel: #11131a;
+      --ink: #eaeef2;
+      --muted: #9aa4af;
+      --accent: #7c5cff;
+      --accent-2: #00d4ff;
+      --good: #2ad38b;
+      --warn: #ffcf5c;
+      --danger: #ff6b6b;
+      --card: #161922;
+      --border: #222737;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --ui: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        background: #fff;
-        min-height: 100vh;
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f8fb; --panel:#ffffff; --ink:#0e1116; --muted:#667085; --card:#ffffff; --border:#e6e8f0; --shadow: 0 8px 24px rgba(0,0,0,.08); }
     }
+    *{ box-sizing:border-box }
+    html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:var(--ui); }
+    a{ color:var(--accent); text-decoration:none }
+    a:hover{ text-decoration:underline }
+    .wrap{ max-width:1100px; margin:auto; padding:32px 20px 80px }
 
-    .header {
-        background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
-        color: white;
-        padding: 2rem;
-        text-align: center;
+    header{
+      text-align:center; margin-bottom:28px;
     }
+    .title{ font-size:clamp(28px, 4vw, 44px); line-height:1.1; margin:4px 0 8px; letter-spacing:.2px; }
+    .subtitle{ color:var(--muted); font-size:clamp(14px, 2.1vw, 18px); }
 
-    .header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    .badge{ display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--border); background:linear-gradient(180deg, var(--panel), rgba(124,92,255,0.08)); border-radius:999px; color:var(--ink); font-weight:600; box-shadow:var(--shadow); }
+    .grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:18px }
+    .card{ grid-column: span 12; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; }
+    .card h2, .card h3{ margin:8px 0 12px }
+    .muted{ color:var(--muted) }
+    .accent{ color:var(--accent) }
+    .accent2{ color:var(--accent-2) }
+    .good{ color:var(--good) }
+    .warn{ color:var(--warn) }
+    .danger{ color:var(--danger) }
+
+    .ascii{ font-family:var(--mono); font-size:12.5px; line-height:1.15; background:radial-gradient(1200px 600px at 0% 0%, rgba(124,92,255,.15), transparent 50%),
+                                     radial-gradient(900px 500px at 100% 0%, rgba(0,212,255,.15), transparent 50%), var(--panel);
+            border:1px solid var(--border); border-radius:var(--radius); padding:18px; overflow:auto; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,92,255,.14); border:1px solid var(--border); }
+    .flex{ display:flex; gap:14px; flex-wrap:wrap; align-items:center }
+
+    .table{ width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--border) }
+    .table thead th{ text-align:left; padding:12px 14px; background:rgba(124,92,255,.10); font-size:14px }
+    .table tbody td{ padding:10px 14px; border-top:1px solid var(--border); vertical-align:top }
+
+    details{ border:1px solid var(--border); border-radius:12px; background:var(--panel); padding:12px 14px; }
+    details+details{ margin-top:12px }
+    details>summary{ cursor:pointer; font-weight:600 }
+
+    .qa{ display:grid; gap:12px }
+    .qa .q{ font-weight:700 }
+    .qa .a{ color:var(--good) }
+
+    footer{ margin-top:36px; text-align:center; color:var(--muted); font-size:14px }
+
+    @media (min-width: 820px){
+      .card.span6{ grid-column: span 6 }
+      .card.span4{ grid-column: span 4 }
     }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge">🎪 JJ22 SPADES COMPLETE SIGNAL GUIDE 🎪</div>
+      <h1 class="title">🎬 The Ultimate JJ22 Partnership Adventure</h1>
+      <p class="subtitle">Your one‑page, tournament‑ready reference for bidding signals, carding conventions, nil protection, and positional play.</p>
+    </header>
 
-    .header .subtitle {
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
+    <section class="card ascii" aria-label="ASCII banner">
+<pre>
+██████╗██╗  ██╗ █████╗ ██████╗ ██╗     ██╗███████╗
+██╔════╝██║  ██║██╔══██╗██╔══██╗██║     ██║██╔════╝
+██║     ███████║███████║██████╔╝██║     ██║█████╗  
+██║     ██╔══██║██╔══██║██╔══██╗██║     ██║██╔══╝  
+╚██████╗██║  ██║██║  ██║██║  ██║███████╗██║███████╗
+ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝
+                                                    
+██╗  ██╗ █████╗ ████████╗
+██║ ██╔╝██╔══██╗╚══██╔══╝
+█████╔╝ ███████║   ██║   
+██╔═██╗ ██╔══██║   ██║   
+██║  ██╗██║  ██║   ██║   
+╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝
+</pre>
+    </section>
 
-    .ascii-art {
-        font-family: 'Courier New', monospace;
-        font-size: 0.7rem;
-        line-height: 1.1;
-        margin: 1rem 0;
-        white-space: pre;
-        overflow-x: auto;
-    }
+    <div class="grid" role="list">
+      <section class="card span6" role="listitem" id="trump-order">
+        <h2>🏆 JJ22 Trump Hierarchy Academy</h2>
+        <h3>🎯 Power Rankings (High → Low)</h3>
+        <table class="table" aria-describedby="trump-order">
+          <thead>
+            <tr><th>#</th><th>Card</th><th>Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>🃏 Big Joker</td><td class="good">Ultimate Power</td></tr>
+            <tr><td>2</td><td>🃏 Little Joker</td><td>Second in Command</td></tr>
+            <tr><td>3</td><td>2♦ Red Deuce</td><td class="warn">Beats all black spades</td></tr>
+            <tr><td>4</td><td>2♠ Black Deuce</td><td>Still powerful</td></tr>
+            <tr><td>5</td><td>A♠ → K♠ → Q♠ → J♠ → 10♠ → 9♠ → …</td><td>Standard spade rundown</td></tr>
+          </tbody>
+        </table>
+        <p class="pill">🎯 Remember: <strong>Red Deuce beats Ace of Spades</strong>!</p>
+      </section>
 
-    .section {
-        padding: 2rem;
-        border-bottom: 1px solid #eee;
-    }
+      <section class="card span6" id="bidding-signals">
+        <h2>🎯 Bidding Signal Masterclass</h2>
+        <ul>
+          <li><strong>Bid 5</strong> — <em>One</em> top‑4 trump (Joker or Deuce) + depth</li>
+          <li><strong>Bid 6</strong> — Usually <em>two</em> of top‑4 trumps or overwhelming support</li>
+          <li><strong>Bid 7</strong> — Nearly always two Jokers or Joker + 2♦ with side power</li>
+        </ul>
+        <details>
+          <summary>🎪 Episode 1: The 5‑Bid Declaration</summary>
+          <div class="ascii"><pre>
+👨‍💼 CHARLIE'S HAND:  🃏 Big Joker, A♠, K♠, A♥
+💭 "I have one top trump plus power!"
+🗯️ CHARLIE BIDS: 5
+👩‍🦰 KAT: "One Joker/Deuce and good support!"
+🎯 SIGNAL: I own top trump + depth!
+          </pre></div>
+        </details>
+        <details>
+          <summary>🎪 Episode 2: The 6‑Bid Power Move</summary>
+          <div class="ascii"><pre>
+👩‍🦰 KAT'S HAND: 🃏 Big Joker, 2♦, Q♠, K♥
+💭 "I have TWO of the top‑4 trumps!"
+🗯️ KAT BIDS: 6
+👨‍💼 CHARLIE: "Serious trump power—two big ones!"
+🎯 SIGNAL: I have trump dominance!
+          </pre></div>
+        </details>
+        <details>
+          <summary>🎪 Episode 3: The 7‑Bid Ultimate</summary>
+          <div class="ascii"><pre>
+👨‍💼 CHARLIE'S MONSTER HAND: 🃏 Big Joker, 🃏 Little Joker, 2♠, A♣
+💭 "I have BOTH Jokers plus more!"
+🗯️ CHARLIE BIDS: 7
+👩‍🦰 KAT: "Ultimate trump combination!"
+🎯 SIGNAL: I control the game!
+          </pre></div>
+        </details>
+      </section>
 
-    .section-title {
-        background: linear-gradient(135deg, #2c3e50, #34495e);
-        color: white;
-        padding: 1rem 2rem;
-        margin: -2rem -2rem 2rem -2rem;
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-align: center;
-    }
+      <section class="card span6" id="carding">
+        <h2>🎭 Advanced Carding Conventions</h2>
+        <ul>
+          <li><strong>K from KQ combo</strong> — Lead King first to show Queen backup</li>
+          <li><strong>Top of Doubleton</strong> — From 2‑card suit, play higher then lower (shows shortness)</li>
+          <li><strong>Hi/Lo signal</strong> — High then low = doubleton or 3rd‑round boss setup</li>
+          <li><strong>HOTH</strong> — Lead <em>highest</em> of touching honors</li>
+          <li><strong>LOTH</strong> — When following partner, play <em>lowest</em> of touching honors</li>
+        </ul>
+        <details>
+          <summary>🎭 Scene 1: The KQ Combo Reveal</summary>
+          <div class="ascii"><pre>
+👩‍🦰 KAT'S HAND: K♥, Q♥, 7♥
+🎪 Lead: K♥  → "I have the Queen behind!"
+👨‍💼 CHARLIE: "Kat can likely win the next heart trick too!"
+🎯 RESULT: Partnership coordination!
+          </pre></div>
+        </details>
+        <details>
+          <summary>🎭 Scene 2: The Doubleton Drama</summary>
+          <div class="ascii"><pre>
+👨‍💼 CHARLIE'S HAND: Q♦, 3♦
+Round 1: Q♦ (high)   •   Round 2: 3♦ (low)
+🗯️ Signal: "Only 2 diamonds—now void and can trump!"
+🎯 RESULT: Perfect void detection!
+          </pre></div>
+        </details>
+        <details>
+          <summary>🎭 Scene 3: The Touching Honors Show</summary>
+          <div class="ascii"><pre>
+HOTH: K♣ (highest) to show connected honors (K♣, Q♣, J♣)
+LOTH (following partner's A♥): play Q♥ (lowest of touching) → "I have K♥ too!"
+          </pre></div>
+        </details>
+      </section>
 
-    .trump-hierarchy {
-        background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-        border: 3px solid #f39c12;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        text-align: center;
-    }
+      <section class="card span6" id="nil-protection">
+        <h2>🛡️ Nil Protection Masterclass</h2>
+        <ul>
+          <li><strong>Safe leads for NIL</strong> — Lead <em>2nd lowest</em> of a safe suit</li>
+          <li><strong>Nil echo</strong> — Reverse order (low then high) shows a suit is safe</li>
+        </ul>
+        <details>
+          <summary>🦸‍♂️ Episode 1: The Safe Lead Strategy</summary>
+          <div class="ascii"><pre>
+👨‍💼 CHARLIE: 9♣, 3♣, A♥, K♠   •   👩‍🦰 KAT bids: NIL
+Lead 3♣ (2nd lowest) → "This suit is safe!" → Nil protection activated
+          </pre></div>
+        </details>
+        <details>
+          <summary>🦸‍♀️ Episode 2: The Nil Echo Technique</summary>
+          <div class="ascii"><pre>
+👩‍🦰 KAT: J♦, 7♦   •   👨‍💼 CHARLIE bids: NIL
+Round 1: 7♦ (low)  →  Round 2: J♦ (high)
+Signal: "Diamonds are safe for partner's nil!"
+          </pre></div>
+        </details>
+      </section>
 
-    .trump-order {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin: 1rem 0;
-    }
+      <section class="card span6" id="positional">
+        <h2>🎯 Positional Play Tactics</h2>
+        <ul>
+          <li><strong>2nd seat low, 3rd seat high</strong> — Conserve in 2nd; press in 3rd</li>
+          <li><strong>Returning spade leads</strong> — If partner leads spade, usually return spade</li>
+        </ul>
+        <details>
+          <summary>🎭 Scene 1: Position Play Drama</summary>
+          <div class="ascii"><pre>
+Setup: Opponent leads 9♣
+2nd Seat (Charlie): holds K♣ → plays low (4♣)
+3rd Seat (Kat): holds Q♣ → plays high (Q♣)
+🎯 RESULT: Position leveraged perfectly
+          </pre></div>
+        </details>
+        <details>
+          <summary>🎭 Scene 2: The Spade Return Protocol</summary>
+          <div class="ascii"><pre>
+👩‍🦰 KAT leads: K♠  →  👨‍💼 CHARLIE wins with A♠
+Decision: Return spades → Next lead: Q♠ → Coordinated trump pulling
+          </pre></div>
+        </details>
+      </section>
 
-    .comic-panel {
-        background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-        border: 3px solid #333;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
-    }
+      <section class="card" id="cheat-codes">
+        <h2>⚡ Lightning Quick Reference</h2>
+        <div class="grid">
+          <div class="card span6">
+            <h3>🏆 Bidding Signals</h3>
+            <ul>
+              <li>Bid 5 → <em>One top trump + support</em> 💪</li>
+              <li>Bid 6 → <em>Two top trumps</em> 🔥</li>
+              <li>Bid 7 → <em>Trump domination</em> 👑</li>
+            </ul>
+          </div>
+          <div class="card span6">
+            <h3>🎭 Carding Signals</h3>
+            <ul>
+              <li>K from KQ → "Queen behind" 👸</li>
+              <li>Hi/Lo → "Doubleton or boss" 📈📉</li>
+              <li>HOTH Lead → "Connected honors" 🔗</li>
+              <li>LOTH Follow → "Lowest of touching" ⬇️</li>
+            </ul>
+          </div>
+          <div class="card span6">
+            <h3>🛡️ Nil Protection</h3>
+            <ul>
+              <li>Safe lead → <em>2nd lowest</em> 🛡️</li>
+              <li>Nil echo → <em>Low then high = safe</em> 🔄</li>
+            </ul>
+          </div>
+          <div class="card span6">
+            <h3>🎯 Position Play</h3>
+            <ul>
+              <li>2nd seat → <em>Play low</em> ⬇️</li>
+              <li>3rd seat → <em>Play high</em> ⬆️</li>
+              <li>Spade return → <em>Follow partner's spades</em> ♠️</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    .character-box {
-        display: flex;
-        align-items: center;
-        margin: 1rem 0;
-        padding: 1rem;
-        border-radius: 10px;
-        border: 2px solid #333;
-    }
+      <section class="card span6" id="missions">
+        <h2>🎮 Training Missions</h2>
+        <div class="qa">
+          <div>
+            <div class="q">🏆 Mission 1: Bidding Detective</div>
+            <div class="ascii"><pre>
+Scenario: Charlie bids 6 on the first round.
+What does this tell Kat?
+A) Weak hand
+B) Two top‑4 trumps
+C) Bluffing
+✅ Answer: B — Big trump power!
+            </pre></div>
+          </div>
+          <div>
+            <div class="q">🏆 Mission 2: Carding Master</div>
+            <div class="ascii"><pre>
+Scenario: Kat leads K♥, then plays Q♥ next round when hearts are led again.
+What did Kat signal?
+A) Confused
+B) K‑Q combo
+C) Hates hearts
+✅ Answer: B — KQ combination!
+            </pre></div>
+          </div>
+          <div>
+            <div class="q">🏆 Mission 3: Nil Protection Hero</div>
+            <div class="ascii"><pre>
+Scenario: Charlie bids nil; you hold 9♣, 3♣. What should you lead?
+A) 9♣ (high)
+B) 3♣ (2nd lowest)
+C) Don't lead clubs
+✅ Answer: B — Safe nil lead!
+            </pre></div>
+          </div>
+        </div>
+      </section>
 
-    .charlie-box {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        color: white;
-    }
+      <section class="card span6" id="memory-palace">
+        <h2>🎪 Memory Palace Theater</h2>
+        <ul>
+          <li>Act 1 — <strong>Bidding</strong>: 5 = One Top Trump + Support • 6 = Two Top Trumps • 7 = Domination</li>
+          <li>Act 2 — <strong>Carding</strong>: King from KQ = Queen Behind • Hi/Lo = Doubleton • HOTH = Touching Honors</li>
+          <li>Act 3 — <strong>Nil Protection</strong>: Safe Leads = 2nd Lowest • Nil Echo = Low then High</li>
+          <li>Grand Finale — <strong>Position Play</strong>: 2nd = Low • 3rd = High • Return Partner's Spades</li>
+        </ul>
+      </section>
 
-    .kat-box {
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        color: white;
-    }
+      <section class="card" id="vow">
+        <h2>🤝 The Sacred Partnership Vow</h2>
+        <blockquote>
+          <p>
+            "We vow to use bidding signals, master carding conventions, protect each other's nils, play perfect positional strategy, and <strong>dominate JJ22</strong> with our complete signal mastery!"
+          </p>
+          <p class="good">🎯 Together we are unstoppable!</p>
+        </blockquote>
+      </section>
+    </div>
 
-    .character-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-right: 1rem;
-        border: 2px solid rgba(255,255,255,0.3);
-        flex-shrink: 0;
-    }
-
-    .character-text {
-        flex: 1;
-    }
-
-    .character-name {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-    }
-
-    .character-action {
-        margin-bottom: 0.5rem;
-    }
-
-    .character-thought {
-        font-style: italic;
-        opacity: 0.9;
-        font-size: 0.9rem;
-    }
-
-    .card {
-        display: inline-block;
-        background: white;
-        border: 2px solid #333;
-        border-radius: 5px;
-        padding: 0.3rem 0.6rem;
-        margin: 0.2rem;
-        font-weight: bold;
-        font-size: 0.9rem;
-        box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .spade { color: #000; }
-    .heart { color: #e74c3c; }
-    .diamond { color: #e74c3c; }
-    .club { color: #000; }
-
-    .big-joker {
-        background: linear-gradient(45deg, #f39c12, #e67e22);
-        color: white;
-    }
-
-    .little-joker {
-        background: linear-gradient(45deg, #9b59b6, #8e44ad);
-        color: white;
-    }
-
-    .signal-bubble {
-        background: linear-gradient(135deg, #d4edda, #c3e6cb);
-        border: 2px dashed #28a745;
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 1rem 0;
-        text-align: center;
-        font-weight: bold;
-        color: #155724;
-    }
-
-    .tip-box {
-        background: #fff3cd;
-        border-left: 4px solid #ffc107;
-        padding: 1rem;
-        margin: 1rem 0;
-        border-radius: 0 5px 5px 0;
-    }
-
-    .example-box {
-        background: #d1ecf1;
-        border-left: 4px solid #17a2b8;
-        padding: 1rem;
-        margin: 1rem 0;
-        border-radius: 0 5px 5px 0;
-    }
-
-    .scenario-box {
-        background: #e2e3e5;
-        border: 2px solid #6c757d;
-        border-radius: 5px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-weight: bold;
-    }
-
-    .quick-ref {
-        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-        border: 3px solid #2196f3;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-    }
-
-    .ref-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .ref-item {
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 2px solid #2196f3;
-        text-align: center;
-    }
-
-    .ref-item h4 {
-        color: #1976d2;
-        margin-bottom: 0.5rem;
-    }
-
-    .mission-box {
-        background: linear-gradient(135deg, #fff8e1, #ffecb3);
-        border: 3px solid #ffa000;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-
-    .mission-box:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .mission-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #e65100;
-        margin-bottom: 1rem;
-    }
-
-    .mission-content {
-        line-height: 1.6;
-    }
-
-    .answer {
-        background: #c8e6c9;
-        padding: 1rem;
-        border-radius: 5px;
-        margin-top: 1rem;
-        font-weight: bold;
-        color: #1b5e20;
-        display: none;
-    }
-
-    .memory-palace {
-        background: linear-gradient(135deg, #f3e5f5, #e1bee7);
-        border: 3px solid #9c27b0;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        text-align: center;
-    }
-
-    .vow-box {
-        background: linear-gradient(135deg, #fce4ec, #f8bbd9);
-        border: 3px solid #e91e63;
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        text-align: center;
-        font-size: 1.1rem;
-        line-height: 1.8;
-    }
-
-    .final-rules {
-        background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-        color: white;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        border-radius: 15px;
-        text-align: center;
-    }
-
-    .final-rules ol {
-        text-align: left;
-        max-width: 600px;
-        margin: 1rem auto;
-    }
-
-    .final-rules li {
-        margin: 0.5rem 0;
-        font-weight: bold;
-    }
-
-    .highlight {
-        background: #ffeb3b;
-        padding: 2px 4px;
-        border-radius: 3px;
-        color: #333;
-        font-weight: bold;
-    }
-
-    .ascii-panel {
-        background: #2c3e50;
-        color: #ecf0f1;
-        padding: 1rem;
-        border-radius: 5px;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-        font-size: 0.8rem;
-        line-height: 1.2;
-        overflow-x: auto;
-        white-space: pre;
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-        .header h1 {
-            font-size: 2rem;
-        }
-        
-        .section {
-            padding: 1rem;
-        }
-        
-        .section-title {
-            margin: -1rem -1rem 1rem -1rem;
-            padding: 1rem;
-            font-size: 1.4rem;
-        }
-        
-        .character-box {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .character-avatar {
-            margin-right: 0;
-            margin-bottom: 0.5rem;
-        }
-        
-        .ref-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .ascii-art {
-            font-size: 0.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .header {
-            padding: 1rem;
-        }
-        
-        .header h1 {
-            font-size: 1.5rem;
-        }
-        
-        .ascii-art {
-            font-size: 0.4rem;
-        }
-        
-        .card {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.4rem;
-        }
-    }
-</style>
+    <footer>
+      <p>© JJ22 Spades Guide • Built for GitHub Pages. Drop this file in your repo (e.g. <code>index.html</code>). No build tools required.</p>
+    </footer>
+  </div>
+</body>
+</html>
