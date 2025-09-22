@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JJ22 Spades — Guidebook</title>
-  <meta name="description" content="JJ22 (Joker Joker Deuce Deuce) Spades guidebook: rules, bidding, scoring, and etiquette." />
+  <title>JJDD Spades — Real Playbook</title>
+  <meta name="description" content="Joker Joker Deuce Deuce (JJDD) Spades playbook: rules, bidding guide, scoring, strategy, etiquette." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     a{color:#bfefff}
     .wrap{min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:48px 20px}
     .card{
-      width:100%; max-width:980px; border-radius:28px; padding:clamp(24px,4vw,40px);
+      width:100%; max-width:1000px; border-radius:28px; padding:clamp(24px,4vw,40px);
       background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.02));
       border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,.35); position:relative; overflow:hidden;
     }
@@ -43,13 +43,12 @@
     .breadcrumb a{color:var(--muted); text-decoration:none}
     .breadcrumb a:hover{color:#e8f7ff; text-decoration:underline}
 
-    /* layout */
     .content{display:grid; grid-template-columns:1fr; gap:20px}
-    @media (min-width:900px){ .content{grid-template-columns: 280px 1fr} }
+    @media (min-width:960px){ .content{grid-template-columns: 300px 1fr} }
 
-    /* side panel / toc */
     .panel{
       background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:20px; padding:16px 16px;
+      position:sticky; top:28px; height:max-content;
     }
     .panel h3{margin:0 0 10px; font-size:16px; letter-spacing:.3px}
     .toc{list-style:none; padding-left:0; margin:0}
@@ -57,7 +56,6 @@
     .toc a{text-decoration:none; color:var(--text)}
     .toc a:hover{color:#c7f2ff}
 
-    /* main body */
     h2{margin:22px 0 10px; font-size:clamp(20px,3.4vw,28px)}
     p{color:var(--text); line-height:1.65}
     .muted{color:var(--muted)}
@@ -65,18 +63,16 @@
       margin:12px 0 22px; padding:16px 18px; border-radius:16px;
       background:rgba(167,139,250,.10); border:1px solid rgba(167,139,250,.35)
     }
-    blockquote{
-      margin:0; font-size:clamp(16px,2.4vw,20px); font-weight:600; line-height:1.5
-    }
+    blockquote{ margin:0; font-size:clamp(16px,2.4vw,20px); font-weight:600; line-height:1.5 }
+
     .grid-2{display:grid; grid-template-columns:1fr; gap:14px}
-    @media(min-width:700px){ .grid-2{grid-template-columns:1fr 1fr} }
+    @media(min-width:720px){ .grid-2{grid-template-columns:1fr 1fr} }
 
     .rulebox{
       background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:16px; padding:14px 16px
     }
     ul{margin:8px 0 0 18px}
     code{font-family:"JetBrains Mono",monospace; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px}
-
     .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
@@ -84,6 +80,7 @@
     }
     .btn:hover{border-color:var(--ring)}
     footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:right}
+    hr{border:0;border-top:1px solid var(--border);margin:8px 0 0}
   </style>
 </head>
 
@@ -91,10 +88,10 @@
   <main class="wrap">
     <section class="card" role="region" aria-labelledby="title">
       <header>
-        <div class="logo"><span>JJ22</span></div>
+        <div class="logo"><span>JJDD</span></div>
         <div>
-          <h1 id="title">Spades Guidebook <span class="emojis">🃏♠️</span></h1>
-          <div class="breadcrumb"><a href="index.html">Home</a> / Guidebook</div>
+          <h1 id="title">Real Spades Playbook <span class="emojis">🃏♠️</span></h1>
+          <div class="breadcrumb"><a href="#">Home</a> / Guidebook</div>
         </div>
       </header>
 
@@ -103,136 +100,268 @@
         <aside class="panel" aria-label="Table of contents">
           <h3>Contents</h3>
           <ul class="toc">
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#jj22-rules">JJ22 Card Order</a></li>
-            <li><a href="#deal-bid">Dealing & Bidding</a></li>
-            <li><a href="#play">Gameplay Basics</a></li>
+            <li><a href="#overview">The Basics</a></li>
+            <li><a href="#card-power">Card Power (JJDD)</a></li>
+            <li><a href="#house-rules">House Rules</a></li>
             <li><a href="#scoring">Scoring</a></li>
+            <li><a href="#bidding">Quick Bidding Guide</a></li>
             <li><a href="#nil">Nil & Blind Nil</a></li>
-            <li><a href="#etiquette">Table Talk & Etiquette</a></li>
-            <li><a href="#tips">Quick Tips</a></li>
+            <li><a href="#play-smart">Playing Smart</a></li>
+            <li><a href="#bags">Bag Management</a></li>
+            <li><a href="#mistakes">Common Mistakes</a></li>
+            <li><a href="#quick-tips">Quick Tips</a></li>
+            <li><a href="#etiquette">Table Etiquette</a></li>
+            <li><a href="#bottom-line">Bottom Line</a></li>
           </ul>
           <div class="btn-row" style="margin-top:14px">
             <a class="btn" href="#scoring">Jump to Scoring ➜</a>
-            <a class="btn" href="tournament.html">Tournament Info ➜</a>
+            <a class="btn" href="#bidding">Bidding Cheatsheet ➜</a>
           </div>
         </aside>
 
         <!-- MAIN -->
         <article>
           <div class="callout" aria-label="Quote">
-            <blockquote>“Spades rewards memory and teamwork. Clock the Big Four, help your partner, and know when to risk it all.”</blockquote>
+            <blockquote>“Spades rewards memory and teamwork. Clock the Big Four, help your partner, and know when to gamble.”</blockquote>
           </div>
 
-          <section id="overview">
-            <h2>Overview</h2>
-            <p class="muted">This guide covers the JJ22 variant — <em>Joker Joker Deuce Deuce</em> — with streamlined rules you can use at home or in tournament play.</p>
-          </section>
-
-          <section id="jj22-rules" class="grid-2">
+          <section id="overview" class="grid-2">
             <div class="rulebox">
-              <h2>JJ22 Card Order (High → Low)</h2>
-              <p><strong>Big Joker</strong> (colored) → <strong>Little Joker</strong> (black &amp; white) → <strong>Deuce of Spades (2♠)</strong> → <strong>A♠ K♠ Q♠ … 3♠</strong> → all other suits A–2 (no trump unless spades are broken).</p>
+              <h2>The Basics</h2>
               <ul>
-                <li>Jokers are always spades (trump).</li>
-                <li>2♠ outranks A♠ and down.</li>
+                <li><strong>Players:</strong> 4 (two fixed teams, partners sit across).</li>
+                <li><strong>Deck:</strong> 54 cards (standard deck + both Jokers).</li>
+                <li><strong>Goal:</strong> First team to <strong>500</strong> points wins.</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Deck & Teams</h2>
-              <ul>
-                <li>Standard 52-card deck + both Jokers.</li>
-                <li>Four players, fixed partners sitting opposite.</li>
-                <li>Deal 13 cards each.</li>
-              </ul>
+              <h2>Don’t Get Set to the Grill</h2>
+              <p class="muted">Bid what you can book. Don’t let bags or a bad nil cook you.</p>
             </div>
           </section>
 
-          <section id="deal-bid" class="grid-2">
+          <section id="card-power" class="grid-2">
             <div class="rulebox">
-              <h2>Dealing & Bidding</h2>
+              <h2>Card Power (High → Low)</h2>
+              <p><strong>Big Joker</strong> → <strong>Little Joker</strong> → <strong>Red Deuce (♦2)</strong> <em>(beats all black spades)</em> → <strong>Black Deuce (♣2)</strong> → <strong>A♠ K♠ Q♠ … 3♠</strong> → all other suits A–2.</p>
               <ul>
-                <li>Dealer shuffles; deal clockwise.</li>
-                <li>Each player bids the number of tricks they expect to take.</li>
-                <li>Partners’ bids add to a <strong>team contract</strong>.</li>
-                <li>Typical target: 500 points (adjust per tournament).</li>
+                <li>Jokers and both Deuces count as <strong>spades (trump)</strong>.</li>
+                <li>All other suits have no trump power unless you’re void and trump.</li>
               </ul>
             </div>
             <div class="rulebox">
               <h2>Breaking Spades</h2>
               <ul>
-                <li>Spades (trump) cannot be led until <em>broken</em> (someone cannot follow suit and plays a spade) or only spades remain in your hand.</li>
-                <li>Jokers count as spades for breaking.</li>
+                <li>You can’t lead spades (including Jokers/Deuces) until spades are <em>broken</em>—someone fails to follow suit and trumps—or you only have spades left.</li>
+                <li>Always follow suit if you can; highest trump wins the trick. If no trump is played, highest of the led suit wins. Winner leads next.</li>
               </ul>
             </div>
           </section>
 
-          <section id="play">
-            <h2>Gameplay Basics</h2>
-            <ul>
-              <li>Follow suit if you can; if not, you may trump with a spade or discard another suit.</li>
-              <li>Highest trump wins the trick. If no trump is played, highest card of the led suit wins.</li>
-              <li>Winner of each trick leads the next.</li>
-            </ul>
+          <section id="house-rules" class="grid-2">
+            <div class="rulebox">
+              <h2>House Rules</h2>
+              <ul>
+                <li>No minimum bids: you can bid any number (including <em>0</em> for Nil).</li>
+                <li><strong>Nils allowed:</strong> +100 if you make it, −100 if you take a trick.</li>
+                <li><strong>Blind Nil:</strong> typically allowed only when you’re down ≥100; worth +200/−200 (see <a href="#nil">Nil section</a>).</li>
+                <li><strong>Bags hurt:</strong> every 10 overtricks (bags) = −100; bags then reset.</li>
+                <li>Follow suit. Don’t lead spades until they’re broken.</li>
+                <li>First team to 500 points wins (adjust per tournament).</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Dealing & Bidding Basics</h2>
+              <ul>
+                <li>Deal 13 cards to each player, clockwise.</li>
+                <li>Each player bids books (tricks) they expect to take; partners’ bids form the <strong>team contract</strong>.</li>
+              </ul>
+            </div>
           </section>
 
           <section id="scoring" class="grid-2">
             <div class="rulebox">
-              <h2>Standard Scoring</h2>
+              <h2>Scoring</h2>
               <ul>
-                <li>Made contract: <strong>10 points × team bid</strong>.</li>
-                <li>Overtricks (<em>bags</em>): <strong>+1</strong> each.</li>
-                <li>Set (failed contract): <strong>−10 points × team bid</strong>.</li>
-                <li>Bag penalty: every 10 bags = <strong>−100</strong>, bags reset.</li>
+                <li><strong>Make your team bid:</strong> 10 × team bid.</li>
+                <li><strong>Bags (overtricks):</strong> +1 each; every 10 bags = −100 and reset.</li>
+                <li><strong>Miss your team bid:</strong> −10 × team bid.</li>
+                <li><strong>Nil:</strong> +100 if successful; −100 if you take any trick.</li>
+                <li><strong>Blind Nil:</strong> +200 if successful; −200 if you take any trick (usually only when trailing by ≥100).</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Example</h2>
-              <p>Team bids 6 and takes 8 tricks → <code>60 + 2 bags = 62</code> points.</p>
-              <p>Team bids 7 and takes 6 → <code>−70</code> points.</p>
+              <h2>Examples</h2>
+              <p>Bid 6, take 8 → <code>60 + 2 bags = 62</code>.</p>
+              <p>Bid 7, take 6 → <code>−70</code>.</p>
+              <p>Team bids 5, partner declares Nil and succeeds after team also makes 5 books → <code>50 + 100 = 150</code> (plus any bags).</p>
+            </div>
+          </section>
+
+          <section id="bidding">
+            <h2>Quick Bidding Guide</h2>
+            <div class="grid-2">
+              <div class="rulebox">
+                <h3>Count these as ~1 book each</h3>
+                <ul>
+                  <li><strong>Big Joker</strong>, <strong>Little Joker</strong> (guaranteed)</li>
+                  <li><strong>Red Deuce</strong>, <strong>Black Deuce</strong> (almost guaranteed)</li>
+                  <li>Aces in suits with <strong>4+ cards</strong></li>
+                  <li>Kings <em>if you also have the Ace</em></li>
+                  <li>Kings without the Ace: <em>maybe</em> (count ~0.5 at most)</li>
+                </ul>
+              </div>
+              <div class="rulebox">
+                <h3>Spade Counting</h3>
+                <ul>
+                  <li>Base rule: count <strong>1 book</strong> for each spade <strong>over 4</strong> you hold.</li>
+                  <li>High spade bonus: add when you have the <em>Big Four</em> (🃏🃏 ♦2 ♣2).</li>
+                  <li>Void potential: add if you’re short in other suits (2–3 cards) and can trump.</li>
+                  <li>Quality matters: 🃏 &gt; 🃏 &gt; ♦2 &gt; ♣2 &gt; A♠ &gt; K♠ &gt; Q♠ …</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="rulebox">
+              <h3>But Remember — It’s Situational</h3>
+              <ul>
+                <li><strong>Read the room:</strong> low bids all around? someone sandbagging? be aggressive or conservative as needed.</li>
+                <li><strong>High bids everywhere?</strong> Someone’s getting set; play tight.</li>
+                <li><strong>Score matters:</strong> behind? take more risks. Ahead? play conservative.</li>
+                <li><strong>Partner tilt counts:</strong> adjust based on their confidence level.</li>
+              </ul>
+            </div>
+
+            <div class="grid-2">
+              <div class="rulebox">
+                <h3>When to Bid Nil</h3>
+                <ul>
+                  <li><strong>Good Nil hands:</strong> no A/K or Big Four, lots of low cards (2–6), distribution across suits (avoid voids).</li>
+                  <li><strong>Don’t Nil with:</strong> any Big Four, multiple Aces/face cards, or if you’re missing an entire suit.</li>
+                </ul>
+              </div>
+              <div class="rulebox">
+                <h3>Blind Nil (Desperation)</h3>
+                <ul>
+                  <li>Use only when <strong>down ~100+</strong> and table allows it.</li>
+                  <li>Partner needs a <em>strong</em> hand and should protect you.</li>
+                  <li>High risk but can swing the game: <strong>+200 / −200</strong>.</li>
+                </ul>
+              </div>
             </div>
           </section>
 
           <section id="nil" class="grid-2">
             <div class="rulebox">
-              <h2>Nil & Blind Nil</h2>
+              <h2>Nil Strategy — Support Your Partner</h2>
               <ul>
-                <li><strong>Nil</strong> (bid 0): if successful, <strong>+100</strong>; if you take any trick, <strong>−100</strong>.</li>
-                <li><strong>Blind Nil</strong> (before seeing cards, if allowed): <strong>+200 / −200</strong>. House rules may permit exchanging up to 2 cards with partner after the bid.</li>
-                <li>Partner’s tricks still count toward team contract.</li>
+                <li>Bid to compensate for their 0 (get the books for the team).</li>
+                <li>Take tricks when safe; don’t waste big cards on tricks they’re already winning.</li>
+                <li>Don’t lead suits where your Nil partner has dangerous middles.</li>
+                <li>Let opponents lead first when possible—don’t force tough decisions on partner.</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>JJ22 Tips for Nil</h2>
+              <h2>Nil Strategy — Attack Opponent’s Nil</h2>
               <ul>
-                <li>Watch for the Big Four (🃏🃏 2♠ A♠). Track who’s shown them.</li>
-                <li>Partner should burn high cards early to protect a Nil.</li>
+                <li>Lead suits where the Nil bidder is likely to have <em>middle</em> cards.</li>
+                <li>Save your Aces to trap them; don’t telegraph your cover.</li>
+                <li>Lead low and let their partner get stuck with unwanted tricks.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="play-smart" class="grid-2">
+            <div class="rulebox">
+              <h2>Playing Smart</h2>
+              <ul>
+                <li>Make <strong>your bid first</strong> — don’t just set.</li>
+                <li>Help your partner — don’t waste winners on tricks they’re winning.</li>
+                <li>Track the <strong>Big Four</strong> — know when they’re gone.</li>
+                <li>Count high spades (A, K, Q, J of spades).</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Memory Tricks</h2>
+              <ul>
+                <li>Big Four countdown — always know which remain.</li>
+                <li>High spade tracking — count K, Q, J as they fall.</li>
+                <li>Void awareness — remember who’s out of what suit.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="bags" class="grid-2">
+            <div class="rulebox">
+              <h2>Bag Management</h2>
+              <ul>
+                <li>At <strong>7–8 bags</strong>, start throwing away potential winners.</li>
+                <li><strong>Better to lose 1 trick</strong> now than eat a −100 later.</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Opening Leads (Non-Nil)</h2>
+              <ul>
+                <li>Lead <strong>low</strong> from your longest non-spade suit.</li>
+                <li>Don’t cash Aces too early.</li>
+                <li>Watch who throws off — they’re void in that suit.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common Mistakes</h2>
+            <ul>
+              <li><strong>Counting “maybes” as sure things:</strong> bid what you <em>know</em> you’ll book.</li>
+              <li><strong>Wasting big cards:</strong> don’t spend a King when a lower card wins.</li>
+              <li><strong>Leading spades too early:</strong> wait until they’re broken, or you must.</li>
+              <li><strong>Not helping your partner:</strong> y’all win or lose together.</li>
+            </ul>
+          </section>
+
+          <section id="quick-tips" class="grid-2">
+            <div class="rulebox">
+              <h2>Quick Tips</h2>
+              <ul>
+                <li>Count suits and note voids — information wins games.</li>
+                <li>Bid your books, not your hopes; trust your partner’s numbers.</li>
+                <li>Use spades to control the lead; don’t burn a Joker without purpose.</li>
+                <li>Manage bags intentionally — dumping a winner now can save 100 later.</li>
+              </ul>
+            </div>
+            <div class="rulebox">
+              <h2>Table Talk & Etiquette</h2>
+              <ul>
+                <li>No coded talk or illegal signals; agree on legal conventions up front.</li>
+                <li>Play at a steady pace; be respectful on sets.</li>
+                <li>Don’t announce your cards during play; no coaching partner mid-trick.</li>
+                <li>Keep strategy chat between hands; own your mistakes; keep the game moving.</li>
               </ul>
             </div>
           </section>
 
           <section id="etiquette">
-            <h2>Table Talk & Etiquette</h2>
+            <h2>Table Etiquette (Quick Recap)</h2>
             <ul>
-              <li>No coded talk or illegal signals. Clarify <em>legal</em> conventions before play.</li>
-              <li>Lead cleanly, play at a reasonable pace, and be respectful on sets.</li>
-              <li>Resolve disputes by re-dealing or consulting house/tournament rules.</li>
+              <li>Lead cleanly, follow suit, and resolve disputes by re-deal or house rules.</li>
+              <li>Track time: quick deals, quick counts, good vibes.</li>
             </ul>
           </section>
 
-          <section id="tips">
-            <h2>Quick Tips</h2>
+          <section id="bottom-line" class="rulebox">
+            <h2>Bottom Line</h2>
             <ul>
-              <li>Count suits and note when they’re void—information wins games.</li>
-              <li>Bid your books, not your hopes. Trust your partner’s numbers.</li>
-              <li>Use spades to control the lead; steal with the right Joker, not the first chance.</li>
-              <li>Manage bags—sometimes dumping a winner saves 100 later.</li>
+              <li><strong>The Big Four run everything</strong> — track them like your life depends on it.</li>
+              <li><strong>Trust your partner</strong> — y’all sink or swim together.</li>
+              <li><strong>Don’t get greedy</strong> — making your bid beats eating bags.</li>
+              <li><strong>Know when to gamble</strong> — sometimes Nil is your only play.</li>
             </ul>
+            <hr>
+            <p class="muted">Master these basics and you’ll go from flipping burgers to running the table.</p>
           </section>
 
           <div class="btn-row">
-            <a class="btn" href="index.html">⟵ Back to Home</a>
-            <a class="btn" href="#top">Back to Top ↑</a>
+            <a class="btn" href="#title">Back to Top ↑</a>
           </div>
 
           <footer>
@@ -244,4 +373,3 @@
   </main>
 </body>
 </html>
-
