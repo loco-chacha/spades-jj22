@@ -16,7 +16,6 @@
       --accent:#a78bfa; --accent-2:#22d3ee; --ring:#38bdf8;
     }
 
-    /* Site background matches Home/Guide */
     body{
       margin:0; padding:15px;
       min-height:100vh;
@@ -28,7 +27,6 @@
         linear-gradient(180deg, var(--bg1), var(--bg2));
     }
 
-    /* White container you liked */
     .tournament-container{
       max-width:1200px; margin:0 auto;
       background: rgba(255,255,255,0.97);
@@ -36,7 +34,6 @@
       box-shadow: 0 15px 35px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.5);
     }
 
-    /* JJ22 brand header */
     .brand-header{
       display:flex; align-items:center; gap:14px;
       background: linear-gradient(45deg, #0f172a, #1e293b);
@@ -74,7 +71,6 @@
 
     .content{ padding:20px }
 
-    /* Info bar & section headings */
     .info-bar{
       background: linear-gradient(45deg, #e74c3c, #c0392b);
       color:white; padding:12px 20px; border-radius:10px; text-align:center; font-size:.92rem; margin-bottom:20px;
@@ -87,7 +83,6 @@
       letter-spacing:.2px;
     }
 
-    /* Teams */
     .teams-grid{
       display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
       gap:12px; margin-bottom:20px;
@@ -98,14 +93,12 @@
       box-shadow: 0 4px 12px rgba(46,204,113,.35);
     }
 
-    /* Schedule */
     .schedule-compact{ background:#f8fafc; border-radius:12px; padding:16px; margin-bottom:20px; border:1px solid #e2e8f0 }
     .day-row{ display:grid; grid-template-columns: 110px 1fr; gap:14px; margin-bottom:12px; align-items:center }
     .day-label{ font-weight:800; color:#1e293b; font-size:.9rem }
     .day-matches{ display:flex; flex-wrap:wrap; gap:8px }
     .mini-match{ background:white; border:1px solid #e5e7eb; border-radius:8px; padding:6px 10px; font-size:.85rem; color:#1f2937; flex:1; min-width:220px; text-align:center }
 
-    /* Matches */
     .matches-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-bottom:20px }
     .match{ background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,.05) }
     .match-header{ font-size:.95rem; font-weight:800; color:#0f172a; margin-bottom:8px; text-align:center; border-bottom:1px solid #eef2f7; padding-bottom:6px }
@@ -116,7 +109,6 @@
     .score-input input{ width:48px; padding:5px; border:1px solid #e5e7eb; border-radius:6px; text-align:center; font-size:.95rem }
     .match-status{ text-align:center; font-size:.78rem; color:#64748b; font-style:italic }
 
-    /* Standings */
     .standings-section{ background:#f8fafc; border-radius:12px; padding:16px; border:1px solid #e2e8f0 }
     .standings-table{ width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.05); font-size:.9rem }
     .standings-table th{ background: linear-gradient(45deg, #38bdf8, #0ea5e9); color:white; padding:10px 8px; text-align:left; font-weight:800; letter-spacing:.2px }
@@ -128,7 +120,6 @@
     .qualified-badge{ background:#22c55e; color:white }
     .eliminated-badge{ background:#ef4444; color:white }
 
-    /* Buttons / footer */
     .top-actions{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 8px }
     .btn{
       display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
@@ -190,10 +181,15 @@
       <div class="section-title" id="schedule">Schedule</div>
       <div class="schedule-compact">
         <div class="day-row">
+          <div class="day-label">Sun 9/28</div>
+          <div class="day-matches">
+            <div class="mini-match">EmojiPrincess & Klambstahh vs chacha & Kat</div>
+          </div>
+        </div>
+        <div class="day-row">
           <div class="day-label">Mon 9/29</div>
           <div class="day-matches">
             <div class="mini-match">Chels & Yassy vs Ramzy & DhaRoyalBarb5</div>
-            <div class="mini-match">EmojiPrincess & Klambstahh vs chacha & Kat</div>
           </div>
         </div>
         <div class="day-row">
@@ -233,12 +229,13 @@
 
       <div class="section-title" id="results">Match Results</div>
       <div class="matches-grid">
+        <!-- Renumbered chronologically -->
         <div class="match">
-          <div class="match-header">Match 1 - Mon 9/29</div>
+          <div class="match-header">Match 1 - Sun 9/28</div>
           <div class="match-teams">
-            <div class="match-team">Chels & Yassy</div>
+            <div class="match-team">EmojiPrincess & Klambstahh</div>
             <div class="vs">vs</div>
-            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
+            <div class="match-team">chacha & Kat</div>
           </div>
           <div class="score-input">
             <input type="number" placeholder="W/L" min="0" max="1">
@@ -251,9 +248,9 @@
         <div class="match">
           <div class="match-header">Match 2 - Mon 9/29</div>
           <div class="match-teams">
-            <div class="match-team">EmojiPrincess & Klambstahh</div>
+            <div class="match-team">Chels & Yassy</div>
             <div class="vs">vs</div>
-            <div class="match-team">chacha & Kat</div>
+            <div class="match-team">Ramzy & DhaRoyalBarb5</div>
           </div>
           <div class="score-input">
             <input type="number" placeholder="W/L" min="0" max="1">
@@ -450,16 +447,16 @@
       tbody.innerHTML = '';
       sorted.forEach((team, i) => {
         const s = teamStats[team];
-        const tr = document.createElement('tr');
+        const row = document.createElement('tr');
 
         let status = '-';
         if (s.wins > 0 || s.losses > 0) {
-          if (i < 4) { status = '<span class="status-badge qualified-badge">QUALIFIED</span>'; tr.classList.add('qualified-row'); }
-          else { status = '<span class="status-badge eliminated-badge">ELIMINATED</span>'; tr.classList.add('eliminated-row'); }
+          if (i < 4) { status = '<span class="status-badge qualified-badge">QUALIFIED</span>'; row.classList.add('qualified-row'); }
+          else { status = '<span class="status-badge eliminated-badge">ELIMINATED</span>'; row.classList.add('eliminated-row'); }
         }
 
-        tr.innerHTML = `<td>${i+1}</td><td>${team}</td><td>${s.wins}</td><td>${s.losses}</td><td>${status}</td>`;
-        tbody.appendChild(tr);
+        row.innerHTML = `<td>${i + 1}</td><td>${team}</td><td>${s.wins}</td><td>${s.losses}</td><td>${status}</td>`;
+        tbody.appendChild(row);
       });
     }
 
