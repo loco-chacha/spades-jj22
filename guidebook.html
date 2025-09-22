@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JJDD Spades — Real Playbook</title>
-  <meta name="description" content="Joker Joker Deuce Deuce (JJDD) Spades playbook: rules, bidding guide, scoring, strategy, etiquette." />
+  <title>Real Spades Playbook — JJDD</title>
+  <meta name="description" content="Joker Joker Deuce Deuce (JJDD) Spades playbook: rules, bidding, scoring, strategy, etiquette." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --bg1:#0b0f1a; --bg2:#111827; --text:#e5e7eb; --muted:#94a3b8;
@@ -57,6 +56,7 @@
     .toc a:hover{color:#c7f2ff}
 
     h2{margin:22px 0 10px; font-size:clamp(20px,3.4vw,28px)}
+    h3{margin:16px 0 8px; font-size:clamp(16px,2.4vw,22px)}
     p{color:var(--text); line-height:1.65}
     .muted{color:var(--muted)}
     .callout{
@@ -100,13 +100,13 @@
         <aside class="panel" aria-label="Table of contents">
           <h3>Contents</h3>
           <ul class="toc">
-            <li><a href="#overview">The Basics</a></li>
+            <li><a href="#basics">The Basics</a></li>
             <li><a href="#card-power">Card Power (JJDD)</a></li>
             <li><a href="#house-rules">House Rules</a></li>
             <li><a href="#scoring">Scoring</a></li>
             <li><a href="#bidding">Quick Bidding Guide</a></li>
             <li><a href="#nil">Nil & Blind Nil</a></li>
-            <li><a href="#play-smart">Playing Smart</a></li>
+            <li><a href="#playing-smart">Playing Smart</a></li>
             <li><a href="#bags">Bag Management</a></li>
             <li><a href="#mistakes">Common Mistakes</a></li>
             <li><a href="#quick-tips">Quick Tips</a></li>
@@ -122,16 +122,16 @@
         <!-- MAIN -->
         <article>
           <div class="callout" aria-label="Quote">
-            <blockquote>“Spades rewards memory and teamwork. Clock the Big Four, help your partner, and know when to gamble.”</blockquote>
+            <blockquote>“Spades rewards memory and teamwork. Clock the Big Four, help your partner, and know when to risk it all.”</blockquote>
           </div>
 
-          <section id="overview" class="grid-2">
+          <section id="basics" class="grid-2">
             <div class="rulebox">
               <h2>The Basics</h2>
               <ul>
-                <li><strong>Players:</strong> 4 (two fixed teams, partners sit across).</li>
-                <li><strong>Deck:</strong> 54 cards (standard deck + both Jokers).</li>
-                <li><strong>Goal:</strong> First team to <strong>500</strong> points wins.</li>
+                <li><strong>4 Players, 2 Teams</strong> — Sit across from your partner</li>
+                <li><strong>54 Cards</strong> — Regular deck + 2 jokers</li>
+                <li><strong>Goal</strong> — First team to <strong>500</strong> points wins</li>
               </ul>
             </div>
             <div class="rulebox">
@@ -142,18 +142,22 @@
 
           <section id="card-power" class="grid-2">
             <div class="rulebox">
-              <h2>Card Power (High → Low)</h2>
-              <p><strong>Big Joker</strong> → <strong>Little Joker</strong> → <strong>Red Deuce (♦2)</strong> <em>(beats all black spades)</em> → <strong>Black Deuce (♣2)</strong> → <strong>A♠ K♠ Q♠ … 3♠</strong> → all other suits A–2.</p>
-              <ul>
-                <li>Jokers and both Deuces count as <strong>spades (trump)</strong>.</li>
-                <li>All other suits have no trump power unless you’re void and trump.</li>
-              </ul>
+              <h2>Card Power (Highest → Lowest)</h2>
+              <ol>
+                <li><strong>Big Joker</strong></li>
+                <li><strong>Little Joker</strong></li>
+                <li><strong>2♦ (Red Deuce)</strong> — Beats ALL black spades!</li>
+                <li><strong>2♣ (Black Deuce)</strong></li>
+                <li><strong>A♠ → K♠ → Q♠ → J♠ → 10♠ → 9♠ → 8♠ → 7♠ → 6♠ → 5♠ → 4♠ → 3♠</strong></li>
+                <li>All other suits: <strong>A → K → Q → J → 10 → 9 → 8 → 7 → 6 → 5 → 4 → 3 → 2</strong></li>
+              </ol>
+              <p class="muted">Jokers and both Deuces count as spades (trump).</p>
             </div>
             <div class="rulebox">
-              <h2>Breaking Spades</h2>
+              <h2>Breaking / Following</h2>
               <ul>
-                <li>You can’t lead spades (including Jokers/Deuces) until spades are <em>broken</em>—someone fails to follow suit and trumps—or you only have spades left.</li>
-                <li>Always follow suit if you can; highest trump wins the trick. If no trump is played, highest of the led suit wins. Winner leads next.</li>
+                <li><strong>Follow suit</strong> if you have it.</li>
+                <li><strong>Can't lead spades</strong> until someone breaks them by trumping (or you only have spades left).</li>
               </ul>
             </div>
           </section>
@@ -162,19 +166,17 @@
             <div class="rulebox">
               <h2>House Rules</h2>
               <ul>
-                <li>No minimum bids: you can bid any number (including <em>0</em> for Nil).</li>
-                <li><strong>Nils allowed:</strong> +100 if you make it, −100 if you take a trick.</li>
-                <li><strong>Blind Nil:</strong> typically allowed only when you’re down ≥100; worth +200/−200 (see <a href="#nil">Nil section</a>).</li>
-                <li><strong>Bags hurt:</strong> every 10 overtricks (bags) = −100; bags then reset.</li>
-                <li>Follow suit. Don’t lead spades until they’re broken.</li>
-                <li>First team to 500 points wins (adjust per tournament).</li>
+                <li><strong>No minimum bids:</strong> You can bid any number (including 0 for nil)</li>
+                <li><strong>Nils allowed:</strong> Bid 0 books for +100 (or −100 if you fail)</li>
+                <li><strong>Blind nil:</strong> If down 100+, bid nil before looking (+200/−200)</li>
+                <li><strong>Bags hurt:</strong> Every 10 bags = −100 points</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Dealing & Bidding Basics</h2>
+              <h2>Dealing & Contracts</h2>
               <ul>
                 <li>Deal 13 cards to each player, clockwise.</li>
-                <li>Each player bids books (tricks) they expect to take; partners’ bids form the <strong>team contract</strong>.</li>
+                <li>Each player bids their books; partners’ bids form the <strong>team contract</strong>.</li>
               </ul>
             </div>
           </section>
@@ -183,110 +185,127 @@
             <div class="rulebox">
               <h2>Scoring</h2>
               <ul>
-                <li><strong>Make your team bid:</strong> 10 × team bid.</li>
-                <li><strong>Bags (overtricks):</strong> +1 each; every 10 bags = −100 and reset.</li>
-                <li><strong>Miss your team bid:</strong> −10 × team bid.</li>
-                <li><strong>Nil:</strong> +100 if successful; −100 if you take any trick.</li>
-                <li><strong>Blind Nil:</strong> +200 if successful; −200 if you take any trick (usually only when trailing by ≥100).</li>
+                <li><strong>Make bid:</strong> 10 × bid + bags</li>
+                <li><strong>Miss bid:</strong> −10 × bid</li>
+                <li><strong>Make nil:</strong> +100 points</li>
+                <li><strong>Miss nil:</strong> −100 points</li>
+                <li><strong>Blind nil:</strong> +200/−200</li>
               </ul>
             </div>
             <div class="rulebox">
               <h2>Examples</h2>
               <p>Bid 6, take 8 → <code>60 + 2 bags = 62</code>.</p>
               <p>Bid 7, take 6 → <code>−70</code>.</p>
-              <p>Team bids 5, partner declares Nil and succeeds after team also makes 5 books → <code>50 + 100 = 150</code> (plus any bags).</p>
             </div>
           </section>
 
           <section id="bidding">
             <h2>Quick Bidding Guide</h2>
+
             <div class="grid-2">
               <div class="rulebox">
-                <h3>Count these as ~1 book each</h3>
+                <h3>Regular Bidding — Count these as 1 book each</h3>
                 <ul>
-                  <li><strong>Big Joker</strong>, <strong>Little Joker</strong> (guaranteed)</li>
-                  <li><strong>Red Deuce</strong>, <strong>Black Deuce</strong> (almost guaranteed)</li>
+                  <li>Big Joker, Little Joker (guaranteed)</li>
+                  <li>Red Deuce, Black Deuce (almost guaranteed)</li>
                   <li>Aces in suits with <strong>4+ cards</strong></li>
-                  <li>Kings <em>if you also have the Ace</em></li>
-                  <li>Kings without the Ace: <em>maybe</em> (count ~0.5 at most)</li>
+                  <li>Kings <em>if you have the Ace</em></li>
+                  <li>Kings without Ace (<em>maybe</em> — count as ~0.5)</li>
                 </ul>
               </div>
+
               <div class="rulebox">
                 <h3>Spade Counting</h3>
                 <ul>
-                  <li>Base rule: count <strong>1 book</strong> for each spade <strong>over 4</strong> you hold.</li>
-                  <li>High spade bonus: add when you have the <em>Big Four</em> (🃏🃏 ♦2 ♣2).</li>
-                  <li>Void potential: add if you’re short in other suits (2–3 cards) and can trump.</li>
-                  <li>Quality matters: 🃏 &gt; 🃏 &gt; ♦2 &gt; ♣2 &gt; A♠ &gt; K♠ &gt; Q♠ …</li>
+                  <li><strong>Base rule:</strong> Count <strong>1 book for each spade over 4</strong> that you hold</li>
+                  <li><strong>High spades bonus:</strong> Add extra if you have Big Four (Jokers & Deuces)</li>
+                  <li><strong>Void potential:</strong> Add more if you're short in other suits (1–2 cards = easier to go void and trump)</li>
+                  <li><strong>Quality matters:</strong> Big Joker + A♠ + K♠ is worth more than 3♠ + 4♠ + 5♠</li>
                 </ul>
               </div>
             </div>
 
             <div class="rulebox">
-              <h3>But Remember — It’s Situational</h3>
+              <h3>But Remember — Everything is Situational</h3>
               <ul>
-                <li><strong>Read the room:</strong> low bids all around? someone sandbagging? be aggressive or conservative as needed.</li>
-                <li><strong>High bids everywhere?</strong> Someone’s getting set; play tight.</li>
-                <li><strong>Score matters:</strong> behind? take more risks. Ahead? play conservative.</li>
-                <li><strong>Partner tilt counts:</strong> adjust based on their confidence level.</li>
+                <li><strong>Read the room:</strong> Low bids all around = someone's lying, bid aggressive</li>
+                <li><strong>High bids everywhere:</strong> Someone's getting set, play it safe</li>
+                <li><strong>Score matters:</strong> Behind? Take more risks. Ahead? Play conservative</li>
+                <li><strong>Partner's bid counts:</strong> Adjust based on their confidence level</li>
               </ul>
+            </div>
+
+            <div class="rulebox">
+              <h3>Going for 10</h3>
+              <p>If you and partner have monster hands, bidding <strong>exactly 10 books</strong> gets you <strong>200 points</strong> instead of 100 — but miss it and you lose <strong>200</strong> points.</p>
             </div>
 
             <div class="grid-2">
               <div class="rulebox">
-                <h3>When to Bid Nil</h3>
+                <h3>When to Bid Nil — Good Nil Hands</h3>
                 <ul>
-                  <li><strong>Good Nil hands:</strong> no A/K or Big Four, lots of low cards (2–6), distribution across suits (avoid voids).</li>
-                  <li><strong>Don’t Nil with:</strong> any Big Four, multiple Aces/face cards, or if you’re missing an entire suit.</li>
+                  <li>No aces, kings, or Big Four cards</li>
+                  <li>Lots of 2s, 3s, 4s, 5s</li>
+                  <li>Cards in all suits (not missing a suit)</li>
+                </ul>
+                <h3>Don't Nil With</h3>
+                <ul>
+                  <li>Any Big Four cards</li>
+                  <li>Multiple aces or face cards</li>
+                  <li>Missing an entire suit</li>
                 </ul>
               </div>
+
               <div class="rulebox">
-                <h3>Blind Nil (Desperation)</h3>
+                <h3>Blind Nil (Desperation Move)</h3>
                 <ul>
-                  <li>Use only when <strong>down ~100+</strong> and table allows it.</li>
-                  <li>Partner needs a <em>strong</em> hand and should protect you.</li>
-                  <li>High risk but can swing the game: <strong>+200 / −200</strong>.</li>
+                  <li>Only when down <strong>100 points (exactly)</strong></li>
+                  <li>Same points as regular nil (<strong>+100/−100</strong>)</li>
+                  <li>Partner needs a strong hand</li>
+                  <li>High risk but might be your only shot</li>
                 </ul>
+                <p class="muted">Note: Some tables use the House Rule above (+200/−200 when down 100+).</p>
               </div>
             </div>
           </section>
 
           <section id="nil" class="grid-2">
             <div class="rulebox">
-              <h2>Nil Strategy — Support Your Partner</h2>
+              <h2>Nil Strategy — Supporting Partner's Nil</h2>
               <ul>
-                <li>Bid to compensate for their 0 (get the books for the team).</li>
-                <li>Take tricks when safe; don’t waste big cards on tricks they’re already winning.</li>
-                <li>Don’t lead suits where your Nil partner has dangerous middles.</li>
-                <li>Let opponents lead first when possible—don’t force tough decisions on partner.</li>
+                <li>Bid to compensate for their 0 (you need to get the books for both)</li>
+                <li>Take tricks when you can safely win them</li>
+                <li>Don't lead suits where partner might have dangerous middle cards</li>
+                <li>Let opponents lead first when possible — don't force tough decisions on partner</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Nil Strategy — Attack Opponent’s Nil</h2>
+              <h2>Nil Strategy — Attacking Opponent's Nil</h2>
               <ul>
-                <li>Lead suits where the Nil bidder is likely to have <em>middle</em> cards.</li>
-                <li>Save your Aces to trap them; don’t telegraph your cover.</li>
-                <li>Lead low and let their partner get stuck with unwanted tricks.</li>
+                <li>Lead suits where nil bidder might have middle cards (jacks, queens)</li>
+                <li>Force them into tough decisions with mid-range cards</li>
+                <li>Save your aces — let their partner waste theirs trying to protect</li>
+                <li>Lead low and let the nil bidder get stuck with unwanted tricks</li>
               </ul>
             </div>
           </section>
 
-          <section id="play-smart" class="grid-2">
+          <section id="playing-smart" class="grid-2">
             <div class="rulebox">
-              <h2>Playing Smart</h2>
+              <h2>Playing Smart — Basic Strategy</h2>
               <ul>
-                <li>Make <strong>your bid first</strong> — don’t just set.</li>
-                <li>Help your partner — don’t waste winners on tricks they’re winning.</li>
-                <li>Track the <strong>Big Four</strong> — know when they’re gone.</li>
-                <li>Count high spades (A, K, Q, J of spades).</li>
+                <li><strong>Make your bid first</strong> — Don't get set!</li>
+                <li><strong>Help your partner</strong> — Don't waste big cards on tricks they're already winning</li>
+                <li><strong>Track the Big Four</strong> — Know when they're gone</li>
+                <li><strong>Count high spades</strong> — A, K, Q, J of spades</li>
               </ul>
             </div>
             <div class="rulebox">
               <h2>Memory Tricks</h2>
               <ul>
-                <li>Big Four countdown — always know which remain.</li>
-                <li>High spade tracking — count K, Q, J as they fall.</li>
-                <li>Void awareness — remember who’s out of what suit.</li>
+                <li><strong>Big Four countdown</strong> — Always know which are left</li>
+                <li><strong>High spade tracking</strong> — Count A, K, Q, J as they fall</li>
+                <li><strong>Void awareness</strong> — Remember who's out of what suit</li>
               </ul>
             </div>
           </section>
@@ -295,47 +314,49 @@
             <div class="rulebox">
               <h2>Bag Management</h2>
               <ul>
-                <li>At <strong>7–8 bags</strong>, start throwing away potential winners.</li>
-                <li><strong>Better to lose 1 trick</strong> now than eat a −100 later.</li>
+                <li><strong>At 7–8 bags:</strong> Start throwing away tricks</li>
+                <li><strong>Better to lose 1 trick</strong> than eat −100 points</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Opening Leads (Non-Nil)</h2>
+              <h2>Opening Leads</h2>
               <ul>
-                <li>Lead <strong>low</strong> from your longest non-spade suit.</li>
-                <li>Don’t cash Aces too early.</li>
-                <li>Watch who throws off — they’re void in that suit.</li>
+                <li>Lead low from your longest suit (not spades)</li>
+                <li>Don't lead aces early</li>
+                <li>Watch who throws off — they're void in that suit</li>
               </ul>
             </div>
           </section>
 
           <section id="mistakes">
             <h2>Common Mistakes</h2>
-            <ul>
-              <li><strong>Counting “maybes” as sure things:</strong> bid what you <em>know</em> you’ll book.</li>
-              <li><strong>Wasting big cards:</strong> don’t spend a King when a lower card wins.</li>
-              <li><strong>Leading spades too early:</strong> wait until they’re broken, or you must.</li>
-              <li><strong>Not helping your partner:</strong> y’all win or lose together.</li>
-            </ul>
+            <ol>
+              <li><strong>Counting maybes as sure things</strong> — Only bid on what you know will win</li>
+              <li><strong>Wasting big cards</strong> — Don't use a king when a 7 would win</li>
+              <li><strong>Ignoring bags</strong> — That −100 penalty is real</li>
+              <li><strong>Leading spades too early</strong> — Wait until they're broken</li>
+              <li><strong>Not helping partner</strong> — Y'all win or lose together</li>
+            </ol>
           </section>
 
           <section id="quick-tips" class="grid-2">
             <div class="rulebox">
               <h2>Quick Tips</h2>
               <ul>
-                <li>Count suits and note voids — information wins games.</li>
-                <li>Bid your books, not your hopes; trust your partner’s numbers.</li>
-                <li>Use spades to control the lead; don’t burn a Joker without purpose.</li>
-                <li>Manage bags intentionally — dumping a winner now can save 100 later.</li>
+                <li>Count suits and note voids — information wins games</li>
+                <li>Bid your books, not your hopes; trust your partner’s numbers</li>
+                <li>Use spades to control the lead; don’t burn a Joker without purpose</li>
+                <li>Manage bags intentionally — dumping a winner now can save 100 later</li>
               </ul>
             </div>
             <div class="rulebox">
-              <h2>Table Talk & Etiquette</h2>
+              <h2>Table Etiquette</h2>
               <ul>
-                <li>No coded talk or illegal signals; agree on legal conventions up front.</li>
-                <li>Play at a steady pace; be respectful on sets.</li>
-                <li>Don’t announce your cards during play; no coaching partner mid-trick.</li>
-                <li>Keep strategy chat between hands; own your mistakes; keep the game moving.</li>
+                <li>Don't talk about what cards you have during play</li>
+                <li>No coaching your partner during tricks</li>
+                <li>Keep strategy talk for between hands</li>
+                <li>Own your mistakes without drama</li>
+                <li>Keep the game moving at a good pace</li>
               </ul>
             </div>
           </section>
@@ -344,20 +365,18 @@
             <h2>Table Etiquette (Quick Recap)</h2>
             <ul>
               <li>Lead cleanly, follow suit, and resolve disputes by re-deal or house rules.</li>
-              <li>Track time: quick deals, quick counts, good vibes.</li>
+              <li>Quick deals, quick counts, good vibes.</li>
             </ul>
           </section>
 
           <section id="bottom-line" class="rulebox">
             <h2>Bottom Line</h2>
-            <ul>
-              <li><strong>The Big Four run everything</strong> — track them like your life depends on it.</li>
-              <li><strong>Trust your partner</strong> — y’all sink or swim together.</li>
-              <li><strong>Don’t get greedy</strong> — making your bid beats eating bags.</li>
-              <li><strong>Know when to gamble</strong> — sometimes Nil is your only play.</li>
-            </ul>
+            <p><strong>The Big Four run everything</strong> — Track them like your life depends on it</p>
+            <p><strong>Trust your partner</strong> — Y'all sink or swim together</p>
+            <p><strong>Don't get greedy</strong> — Making your bid beats catching bags</p>
+            <p><strong>Know when to gamble</strong> — Sometimes nil is your only play</p>
             <hr>
-            <p class="muted">Master these basics and you’ll go from flipping burgers to running the table.</p>
+            <p class="muted">Master these basics and you'll go from flipping burgers to running the table!</p>
           </section>
 
           <div class="btn-row">
