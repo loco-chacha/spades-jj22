@@ -10,19 +10,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0b0f1a; --bg2:#111827; --text:#e5e7eb; --muted:#94a3b8;
-      --accent:#a78bfa; --accent-2:#22d3ee; --ring:#38bdf8;
-      --panel:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+      /* Aesthetic palette tuned to the tourney UI */
+      --bg1:#0b0f1a; --bg2:#0f172a; /* midnight / slate */
+      --text:#e6e8ee; --muted:#94a3b8;
+      --accent:#a78bfa; /* violet */
+      --accent-2:#22d3ee; /* cyan */
+      --accent-3:#60a5fa; /* blue for gradients */
+      --ring:#38bdf8; --panel:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+      --chip-bg: linear-gradient(90deg, rgba(167,139,250,.22), rgba(34,211,238,.18));
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0; color:var(--text);
       font-family:Poppins,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.2), transparent 60%),
-                  radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.18), transparent 60%),
-                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.22), transparent 60%),
+        radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
-    a{color:#bfefff}
+    a{color:#c6f0ff}
     .wrap{min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:48px 20px}
     .card{
       width:100%; max-width:1000px; border-radius:28px; padding:clamp(24px,4vw,40px);
@@ -42,12 +49,21 @@
     .breadcrumb a{color:var(--muted); text-decoration:none}
     .breadcrumb a:hover{color:#e8f7ff; text-decoration:underline}
 
+    /* Preview button */
+    .actions{margin-left:auto; display:flex; gap:10px}
+    .chip{
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+      background:var(--chip-bg); border:1px solid rgba(255,255,255,.12);
+    }
+
+    /* Content grid */
     .content{display:grid; grid-template-columns:1fr; gap:20px}
     @media (min-width:960px){ .content{grid-template-columns: 300px 1fr} }
 
+    /* TOC panel */
     .panel{
       background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:20px; padding:16px 16px;
-      position:sticky; top:28px; height:max-content;
+      position:sticky; top:28px; height:max-content; box-shadow:0 12px 30px rgba(2,6,23,.35);
     }
     .panel h3{margin:0 0 10px; font-size:16px; letter-spacing:.3px}
     .toc{list-style:none; padding-left:0; margin:0}
@@ -55,36 +71,78 @@
     .toc a{text-decoration:none; color:var(--text)}
     .toc a:hover{color:#c7f2ff}
 
-    h2{margin:22px 0 10px; font-size:clamp(20px,3.4vw,28px)}
+    /* Headings with accent underline for readability pop */
+    h2{margin:22px 0 10px; font-size:clamp(20px,3.4vw,28px); position:relative}
+    h2::after{
+      content:""; position:absolute; left:0; bottom:-6px; width:68px; height:3px;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius:2px;
+      opacity:.8;
+    }
     h3{margin:16px 0 8px; font-size:clamp(16px,2.4vw,22px)}
-    p{color:var(--text); line-height:1.65}
+    p{color:var(--text); line-height:1.7}
     .muted{color:var(--muted)}
+
+    /* OFFSET / POP treatment */
+    .pop, .rulebox, .callout {
+      position:relative; isolation:isolate;
+    }
+    .pop::before, .rulebox::before, .callout::before{
+      content:""; position:absolute; inset:0; border-radius:inherit; z-index:-1;
+      transform:translate(6px,6px); filter:blur(.4px);
+      background:linear-gradient(135deg, rgba(167,139,250,.35), rgba(34,211,238,.3));
+      opacity:.45; transition:transform .2s ease, opacity .2s ease;
+    }
+    .rulebox:hover::before, .callout:hover::before{ transform:translate(8px,10px); opacity:.6 }
+
     .callout{
       margin:12px 0 22px; padding:16px 18px; border-radius:16px;
-      background:rgba(167,139,250,.10); border:1px solid rgba(167,139,250,.35)
+      background:rgba(167,139,250,.10); border:1px solid rgba(167,139,250,.35);
+      box-shadow:0 10px 24px rgba(9,9,11,.35);
     }
     blockquote{ margin:0; font-size:clamp(16px,2.4vw,20px); font-weight:600; line-height:1.5 }
 
+    /* Rule boxes */
     .grid-2{display:grid; grid-template-columns:1fr; gap:14px}
     @media(min-width:720px){ .grid-2{grid-template-columns:1fr 1fr} }
-
     .rulebox{
-      background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:16px; padding:14px 16px
+      background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:16px; padding:14px 16px;
+      box-shadow:0 12px 24px rgba(2,6,23,.25);
     }
+    .rulebox h2, .rulebox h3{ margin-top:0 }
+
     ul{margin:8px 0 0 18px}
     ol{margin:8px 0 0 18px}
     code{font-family:"JetBrains Mono",monospace; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px}
+
+    /* Buttons */
     .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
-      background:#1f2937; border:1px solid var(--border); color:var(--text); text-decoration:none; font-weight:700
-    }
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
+      background:#111826; border:1px solid var(--border); color:var(--text); text-decoration:none; font-weight:700}
     .btn:hover{border-color:var(--ring)}
+    .btn.primary{
+      background:linear-gradient(135deg, var(--accent), var(--accent-3));
+      color:#0b1020; border:0; box-shadow:0 12px 26px rgba(96,165,250,.35);
+    }
+    .btn.ghost{background:rgba(255,255,255,.05)}
+
     footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:right}
     hr{border:0;border-top:1px solid var(--border);margin:8px 0 0}
+
+    /* Preview mode: bigger type, tighter container, stronger pops */
+    body.preview .card{box-shadow:0 18px 40px rgba(0,0,0,.55)}
+    body.preview p{line-height:1.85}
+    body.preview h2::after{height:4px; width:86px}
+    body.preview .panel{transform:translateY(2px)}
+
+    /* Print-friendly for preview (when triggering print) */
+    @media print{
+      .actions, .panel{display:none !important}
+      body{background:white; color:#111}
+      .card{box-shadow:none; border:0}
+      a{color:#111}
+    }
   </style>
 </head>
-
 <body>
   <main class="wrap">
     <section class="card" role="region" aria-labelledby="title">
@@ -96,11 +154,15 @@
             <a href="https://loco-chacha.github.io/spades-jj22/index.html">Home</a> / Guidebook
           </div>
         </div>
+        <div class="actions">
+          <span class="chip" aria-hidden="true">JJ22 • Round Robin</span>
+          <button id="previewToggle" class="btn primary" type="button" aria-pressed="false">Preview</button>
+        </div>
       </header>
 
       <div class="content">
         <!-- TOC -->
-        <aside class="panel" aria-label="Table of contents">
+        <aside class="panel pop" aria-label="Table of contents">
           <h3>Contents</h3>
           <ul class="toc">
             <li><a href="#basics">The Basics</a></li>
@@ -117,19 +179,19 @@
             <li><a href="#bottom-line">Bottom Line</a></li>
           </ul>
           <div class="btn-row" style="margin-top:14px">
-            <a class="btn" href="#scoring">Jump to Scoring ➜</a>
-            <a class="btn" href="#bidding">Bidding Cheatsheet ➜</a>
+            <a class="btn ghost" href="#scoring">Jump to Scoring ➜</a>
+            <a class="btn ghost" href="#bidding">Bidding Cheatsheet ➜</a>
           </div>
         </aside>
 
         <!-- MAIN -->
         <article>
-          <div class="callout" aria-label="Quote">
+          <div class="callout pop" aria-label="Quote">
             <blockquote>“Good players know how to bid. Great players know how to <em>play</em> a bid.”</blockquote>
           </div>
 
           <section id="basics" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧩 The Basics</h2>
               <ul>
                 <li><strong>4 Players, 2 Teams</strong> — Sit across from your partner</li>
@@ -137,7 +199,7 @@
                 <li><strong>Goal</strong> — First team to <strong>500</strong> points wins</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>📚 Terminology</h2>
               <ul>
                 <li><strong>Suit</strong> — Any non-spade category (♥, ♦, ♣)</li>
@@ -151,7 +213,7 @@
           </section>
 
           <section id="card-power" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>📈 Card Power (Highest → Lowest)</h2>
               <ol>
                 <li><strong>Big Joker</strong></li>
@@ -163,7 +225,7 @@
               </ol>
               <p class="muted">Jokers and both Deuces count as spades (trump).</p>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🛑 Breaking / Following</h2>
               <ul>
                 <li><strong>Follow suit</strong> if you have it.</li>
@@ -173,7 +235,7 @@
           </section>
 
           <section id="house-rules" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🏠 House Rules</h2>
               <ul>
                 <li><strong>No minimum bids:</strong> You can bid any number (including 0 for nil)</li>
@@ -182,7 +244,7 @@
                 <li><strong>Bags hurt:</strong> Every 10 bags = −100 points</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🃏 Dealing & Contracts</h2>
               <ul>
                 <li>Each player is dealt 13 cards. Players take turns leading, moving clockwise.</li>
@@ -192,7 +254,7 @@
           </section>
 
           <section id="scoring" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧮 Scoring</h2>
               <ul>
                 <li><strong>Make bid:</strong> 10 × bid + bags</li>
@@ -202,7 +264,7 @@
                 <li><strong>Blind nil:</strong> +200/−200</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧪 Examples</h2>
               <p>Bid 6, take 8 → <code>60 + 2 bags = 62</code>.</p>
               <p>Bid 7, take 6 → <code>−70</code>.</p>
@@ -211,9 +273,8 @@
 
           <section id="bidding">
             <h2>🧠 Quick Bidding Guide</h2>
-
             <div class="grid-2">
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>✅ Regular Bidding — Count these as 1 book each</h3>
                 <ul>
                   <li><strong>Big Joker</strong> (guaranteed)</li>
@@ -224,8 +285,7 @@
                   <li><strong>Kings</strong> if you also have the Ace (otherwise see “Bidding Suits” rule)</li>
                 </ul>
               </div>
-
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>♠️ Spade Counting (Cuts & High Cards)</h3>
                 <ul>
                   <li><strong>Base rule:</strong> Count <strong>1 book for each spade over 4</strong> you hold.</li>
@@ -235,17 +295,15 @@
                 </ul>
               </div>
             </div>
-
             <div class="grid-2">
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>♥♦♣ Bidding Suits (Aces & Kings)</h3>
                 <ul>
                   <li><strong>See Ace, bid Ace.</strong></li>
                   <li><strong>Kings:</strong> With <strong>≤3 cards</strong> in that suit, you may count the King as a book; with <strong>4+ cards</strong>, <em>don’t</em> count the King.</li>
                 </ul>
               </div>
-
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>🎯 Situational Bidding</h3>
                 <ul>
                   <li><strong>Read the room:</strong> Low bids everywhere? Someone’s sandbagging — be assertive.</li>
@@ -255,14 +313,12 @@
                 </ul>
               </div>
             </div>
-
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h3>💯 Going for 10</h3>
               <p>If you and partner have monster hands, bidding <strong>exactly 10 books</strong> scores <strong>+200</strong> instead of +100 — miss it and it’s <strong>−200</strong>.</p>
             </div>
-
             <div class="grid-2">
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>🚫 When to Bid Nil — Good Nil Hands</h3>
                 <ul>
                   <li>No aces, kings, or Big Four cards</li>
@@ -278,8 +334,7 @@
                   <li>No safe lows </li>
                 </ul>
               </div>
-
-              <div class="rulebox">
+              <div class="rulebox pop">
                 <h3>🎲 Blind Nil (Desperation Move)</h3>
                 <ul>
                   <li>Only when down <strong>100 or more points</strong></li>
@@ -288,13 +343,12 @@
                   <li>Close to full table bid</li>
                   <li>High risk but sometimes your only shot</li>
                 </ul>
-                
               </div>
             </div>
           </section>
 
           <section id="nil" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🛡️ Nil Strategy — Supporting Partner's Nil</h2>
               <ul>
                 <li>Bid to cover their 0 — get enough books for the team.</li>
@@ -303,7 +357,7 @@
                 <li>Let opponents lead when possible to avoid forcing partner.</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>⚔️ Nil Strategy — Attacking Opponent's Nil</h2>
               <ul>
                 <li>Lead into likely middles (J/Q ranges) to trap the Nil.</li>
@@ -315,7 +369,7 @@
           </section>
 
           <section id="playing-smart" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧭 Playing Smart — Basic Strategy</h2>
               <ul>
                 <li><strong>Make your bid first</strong> — don’t get set.</li>
@@ -324,7 +378,7 @@
                 <li><strong>Count high spades</strong> — A, K, Q, J of spades.</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧠 Memory Tricks</h2>
               <ul>
                 <li><strong>Big Four countdown</strong> — always know which remain.</li>
@@ -335,14 +389,14 @@
           </section>
 
           <section id="bags" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🧺 Bag Management</h2>
               <ul>
                 <li>At <strong>7–8 bags</strong>, start shedding potential winners.</li>
                 <li>Better to drop one trick than eat <strong>−100</strong>.</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🔰 Opening Leads</h2>
               <ul>
                 <li>Lead low from your longest non-spade suit.</li>
@@ -354,7 +408,7 @@
 
           <section id="mistakes">
             <h2>🚧 Common Mistakes</h2>
-            <ol>
+            <ol class="rulebox pop">
               <li><strong>Counting maybes as sure things</strong> — bid what you can book.</li>
               <li><strong>Wasting big cards</strong> — don’t spend a King when a 7 wins.</li>
               <li><strong>Ignoring bags</strong> — the −100 is real.</li>
@@ -364,7 +418,7 @@
           </section>
 
           <section id="quick-tips" class="grid-2">
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>⚡ Quick Tips</h2>
               <ul>
                 <li>Count suits and voids — info wins games.</li>
@@ -373,7 +427,7 @@
                 <li>Manage bags intentionally — dumping now can save 100 later.</li>
               </ul>
             </div>
-            <div class="rulebox">
+            <div class="rulebox pop">
               <h2>🤝 Table Etiquette</h2>
               <ul>
                 <li>No card-talking or coaching mid-trick.</li>
@@ -383,7 +437,7 @@
             </div>
           </section>
 
-          <section id="etiquette">
+          <section id="etiquette" class="rulebox pop">
             <h2>🧾 Etiquette Recap</h2>
             <ul>
               <li>Lead cleanly, follow suit, and confirm house rules up front.</li>
@@ -391,7 +445,7 @@
             </ul>
           </section>
 
-          <section id="bottom-line" class="rulebox">
+          <section id="bottom-line" class="rulebox pop">
             <h2>🏁 Bottom Line</h2>
             <p><strong>The Big Four run everything</strong> — track them relentlessly.</p>
             <p><strong>Trust your partner</strong> — y’all sink or swim together.</p>
@@ -402,7 +456,8 @@
           </section>
 
           <div class="btn-row">
-            <a class="btn" href="#title">Back to Top ↑</a>
+            <a class="btn ghost" href="#title">Back to Top ↑</a>
+            <a class="btn primary" href="#bidding">Open Bidding Cheatsheet</a>
           </div>
 
           <footer>
@@ -412,6 +467,29 @@
       </div>
     </section>
   </main>
+
+  <script>
+    // Smooth scroll for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id=a.getAttribute('href');
+        const el=document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // Preview button toggles higher-contrast, print-ready layout
+    const toggle=document.getElementById('previewToggle');
+    const apply=(on)=>{
+      document.body.classList.toggle('preview', on);
+      toggle.setAttribute('aria-pressed', String(on));
+      toggle.textContent = on ? 'Exit Preview' : 'Preview';
+      localStorage.setItem('jjdd_preview', on? '1' : '0');
+    };
+    toggle.addEventListener('click', ()=> apply(!document.body.classList.contains('preview')));
+    // Persist preview state
+    apply(localStorage.getItem('jjdd_preview')==='1');
+  </script>
 </body>
 </html>
 
