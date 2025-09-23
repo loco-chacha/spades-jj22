@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JJ22 Spades — Diagrams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0b0f1a; --bg2:#111827; --panel:#0f172a;
+    --text:#e5e7eb; --muted:#94a3b8;
+    --line:rgba(255,255,255,.12);
+    --spade:#dfe7ff; --club:#dfe7ff; --heart:#ffb4c0; --diamond:#ffb4c0;
+    --trump:#bfefff; /* jokers/deuces glow */
+    --accent:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--text); font-family:Poppins,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,.18), transparent 60%),
+                radial-gradient(900px 600px at 0% 100%, rgba(34,211,238,.14), transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+    padding: 32px 16px 80px;
+  }
+  .container{ max-width:1100px; margin:0 auto; }
+  h1{ font-weight:800; margin:0 0 18px; letter-spacing:.3px; }
+  .sub{ color:var(--muted); margin-bottom:24px; }
+
+  /* Panel */
+  .panel{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:20px; padding:20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+    margin: 18px 0 28px;
+  }
+  .panel h2{ margin:0 0 12px; font-size:1.2rem; }
+  .grid{ display:grid; gap:16px; }
+  @media (min-width: 880px){ .grid.cols-2{ grid-template-columns: 1fr 1fr; } }
+
+  /* Mini card */
+  .hand{ display:grid; grid-template-columns: repeat(4, auto); gap:6px; }
+  .stack{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .stack h3{ margin:0 0 6px; font-size:.95rem; color:var(--muted); font-weight:600; }
+  .row{ display:flex; gap:6px; }
+
+  .card{
+    --w:36px; --h:48px; --r:9px;
+    width:var(--w); height:var(--h);
+    border-radius:var(--r);
+    background:linear-gradient(180deg,#0f172a,#111827);
+    border:1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 3px 10px rgba(0,0,0,.25);
+    position:relative; display:grid; place-items:center;
+  }
+  .card::before{
+    content: attr(data-rank);
+    position:absolute; top:4px; left:6px; font-weight:800; font-size:12px; opacity:.95;
+  }
+  .pip{ font-size:16px; opacity:.95; }
+  .spade{ color:var(--spade); }
+  .club{ color:var(--club); }
+  .heart{ color:var(--heart); }
+  .diamond{ color:var(--diamond); }
+
+  /* Jokers / deuces as trumps (JJ22) */
+  .trump{ outline:2px solid rgba(34,211,238,.35); box-shadow:0 0 0 3px rgba(34,211,238,.12), 0 6px 16px rgba(14,165,233,.25); }
+  .badge{
+    display:inline-block; padding:2px 8px; border-radius:999px;
+    border:1px solid rgba(56,189,248,.35); background:rgba(56,189,248,.12);
+    color:#bfefff; font-weight:700; font-size:.75rem; letter-spacing:.3px;
+  }
+
+  /* “table” for examples */
+  .table{
+    display:grid; grid-template-areas:
+      ".   north  ."
+      "west  .  east"
+      ".   south  .";
+    gap:14px; justify-items:center; align-items:center;
+    padding:10px 0;
+  }
+  .north{ grid-area:north }
+  .south{ grid-area:south }
+  .east { grid-area:east  }
+  .west { grid-area:west  }
+  .seat > h4{ margin:0 0 6px; text-align:center; color:var(--muted); font-size:.85rem; }
+
+  /* Labels */
+  .label{ font-weight:700; margin:10px 0 4px; color:#e9ddff }
+  .bad{ color:#ffb4c0 } .good{ color:#b9ffcc }
+
+  /* Helper sizes for dense diagrams */
+  .tiny .card{ --w:30px; --h:40px; --r:7px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Spades Diagrams</h1>
+  <p class="sub">HTML/CSS components to visualize JJ22 hands & examples (works on GitHub Pages).</p>
+
+  <!-- THE DECK -->
+  <section class="panel">
+    <h2>🃏 The Deck <span class="badge">JJ22</span></h2>
+    <div class="grid cols-2">
+      <div class="stack">
+        <h3>16 Spades (incl. 🃏🃏 + 2♠ + 2♦)</h3>
+        <div class="row">
+          <div class="card trump" data-rank="J"><div class="pip">🃏</div></div>
+          <div class="card trump" data-rank="J"><div class="pip">🃏</div></div>
+          <div class="card trump" data-rank="2"><div class="pip spade">♠</div></div>
+          <div class="card trump" data-rank="2"><div class="pip diamond">♦</div></div>
+        </div>
+        <div class="hand tiny" aria-label="A-K-Q-J-10-9-8-7-6-5-4-3-♠">
+          <div class="card" data-rank="A"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="K"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="Q"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="J"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="10"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="9"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="8"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="7"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="6"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="5"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="4"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="3"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="A"><div class="pip spade" style="opacity:.25">♠</div></div><!-- filler to show 16 total -->
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3>13 Clubs / 12 Diamonds / 13 Hearts</h3>
+        <div class="row">
+          <div class="card" data-rank="A"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="K"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="Q"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="J"><div class="pip club">♣</div></div>
+        </div>
+        <div class="row tiny">
+          <!-- hearts sample -->
+          <div class="card" data-rank="A"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="K"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="Q"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="J"><div class="pip heart">♥</div></div>
+          <!-- diamonds sample -->
+          <div class="card" data-rank="A"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="K"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="Q"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="J"><div class="pip diamond">♦</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAD NILS -->
+  <section class="panel">
+    <h2>❌ Bad Nils</h2>
+    <div class="grid cols-2">
+      <!-- Example 1 -->
+      <div>
+        <div class="label bad">High off-suit + multiple middling spades</div>
+        <div class="hand tiny">
+          <div class="card" data-rank="Q"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="9"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="8"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="3"><div class="pip heart">♥</div></div>
+
+          <div class="card" data-rank="K"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="10"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="7"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="2"><div class="pip diamond">♦</div></div>
+
+          <div class="card" data-rank="J"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="9"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="6"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="3"><div class="pip club">♣</div></div>
+
+          <div class="card" data-rank="10"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="9"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="8"><div class="pip spade">♠</div></div>
+        </div>
+      </div>
+
+      <!-- Example 2 -->
+      <div>
+        <div class="label bad">Too many spades (nil is fragile)</div>
+        <div class="hand tiny">
+          <div class="card" data-rank="6"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="5"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="4"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="2"><div class="pip heart">♥</div></div>
+
+          <div class="card" data-rank="A"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="9"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="4"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="3"><div class="pip diamond">♦</div></div>
+
+          <div class="card" data-rank="8"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="6"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="5"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="3"><div class="pip club">♣</div></div>
+
+          <div class="card" data-rank="K"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="J"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="9"><div class="pip spade">♠</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOOD NILS -->
+  <section class="panel">
+    <h2>✅ Good Nils</h2>
+    <div class="grid cols-2">
+      <div>
+        <div class="label good">Low in 3 suits + short spades</div>
+        <div class="hand tiny">
+          <div class="card" data-rank="7"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="5"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="3"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="2"><div class="pip heart">♥</div></div>
+
+          <div class="card" data-rank="7"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="6"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="4"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="3"><div class="pip diamond">♦</div></div>
+
+          <div class="card" data-rank="6"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="5"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="4"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="2"><div class="pip club">♣</div></div>
+
+          <div class="card" data-rank="6"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="4"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="3"><div class="pip spade">♠</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="label good">Void early, let partner cover</div>
+        <div class="hand tiny">
+          <div class="card" data-rank="8"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="6"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="4"><div class="pip heart">♥</div></div>
+          <div class="card" data-rank="2"><div class="pip heart">♥</div></div>
+
+          <div class="card" data-rank="7"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="5"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="3"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="2"><div class="pip diamond">♦</div></div>
+
+          <div class="card" data-rank="A"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="2"><div class="pip club">♣</div></div>
+          <div class="card" data-rank="2"><div class="pip club" style="opacity:.2">♣</div></div>
+          <div class="card" data-rank=" "><div class="pip club" style="opacity:.0">♣</div></div>
+
+          <div class="card" data-rank="5"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="4"><div class="pip spade">♠</div></div>
+          <div class="card" data-rank="2"><div class="pip spade">♠</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLED SIGNAL EXAMPLE (skeleton you can fill) -->
+  <section class="panel">
+    <h2>📶 Signal Diagram (skeleton)</h2>
+    <div class="table">
+      <div class="seat north">
+        <h4>North (Partner)</h4>
+        <div class="hand tiny">
+          <div class="card" data-rank="K"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="7"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="4"><div class="pip diamond">♦</div></div>
+          <div class="card" data-rank="2"><div class="pip diamond">♦</div></div>
+        </div>
+      </div>
+      <div class="seat west">
+        <h4>West (Lead)</h4>
+        <div class="hand tiny">
+          <div class="card" data-rank="A"><div class="pip diamond">♦</div></div>
+        </div>
+      </div>
+      <div class="seat east">
+        <h4>East</h4>
+        <div class="hand tiny">
+          <div class="card" data-rank="Q"><div class="pip diamond">♦</div></div>
+        </div>
+      </div>
+      <div class="seat south">
+        <h4>South (You)</h4>
+        <div class="hand tiny">
+          <div class="card" data-rank="8"><div class="pip diamond">♦</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="sub">Use the “table” grid to illustrate signals/tricks step-by-step.</p>
+  </section>
+</div>
+</body>
+</html>
+
